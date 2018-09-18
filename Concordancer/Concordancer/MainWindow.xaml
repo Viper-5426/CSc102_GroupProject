@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Concordancer"
         mc:Ignorable="d"
+<<<<<<< HEAD
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         
+=======
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="btnLoad" Content="Load" HorizontalAlignment="Left" Margin="396,374,0,0" VerticalAlignment="Top" Width="75" Click="btnLoad_Click"/>
+        <Button x:Name="btnBrowse" Content="Browse" HorizontalAlignment="Left" Margin="476,374,0,0" VerticalAlignment="Top" Width="75" Click="btnBrowse_Click"/>
+        <TextBox x:Name="txtLocation" HorizontalAlignment="Left" Height="23" Margin="556,375,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="..\..\..\Alice.txt"/>
+        <TextBox x:Name="txtDisplay" HorizontalAlignment="Left" Height="359" Margin="44,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="644"/>
+        <Button x:Name="btnFrequency" Content="Count Frequencies" HorizontalAlignment="Left" Margin="222,375,0,0" VerticalAlignment="Top" Width="142"/>
+
+>>>>>>> 197246fb9e1d841ba3367f215b37788025b3cb32
     </Grid>
 </Window>
