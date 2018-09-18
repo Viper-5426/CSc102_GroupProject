@@ -1,0 +1,44 @@
+﻿<Window x:Class="Concordancer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Concordancer"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="btnLoad" Content="Load" HorizontalAlignment="Left" Margin="678,385,0,0" VerticalAlignment="Top" Width="81" Click="btnLoad_Click"/>
+        <Button x:Name="btnBrowse" Content="Browse" HorizontalAlignment="Left" Margin="483,385,0,0" VerticalAlignment="Top" Width="75" Click="btnBrowse_Click"/>
+        <TextBox x:Name="txtLocation" HorizontalAlignment="Left" Height="23" Margin="558,385,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="..\..\..\Alice.txt"/>
+        <TextBox x:Name="txtDisplay" HorizontalAlignment="Left" Height="157" Margin="229,79,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="195"/>
+        <TabControl HorizontalAlignment="Left" Height="345" VerticalAlignment="Top" Width="792" Margin="0,24,0,0">
+            <TabItem x:Name="tabFrequencyList" Header="Frequency List" HorizontalAlignment="Left" Width="121" Margin="-2,-2,-61,0">
+                <Grid Background="#FFE5E5E5">
+                    <TextBox x:Name="txtFreqList" HorizontalAlignment="Left" Height="294" TextWrapping="Wrap" VerticalAlignment="Top" Width="651"/>
+                    <Button x:Name="btnFrequency" Content="Count &#xD;&#xA;Frequencies!" HorizontalAlignment="Left" Margin="668,235,0,0" VerticalAlignment="Top" Width="98" Height="59" Click="btnFrequency_Click"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tabConcordanceLines" Header="Concordance Lines">
+                <Grid Background="#FFE5E5E5" Margin="0,-1,0,1">
+                    <TextBox x:Name="txtConcordanceLines" HorizontalAlignment="Left" Height="226" Margin="56,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="659"/>
+                    <Button x:Name="btnMakeConcordance" Content="Make Concordance Lines!" HorizontalAlignment="Left" Margin="264,277,0,0" VerticalAlignment="Top" Width="146" Height="30"/>
+                    <TextBlock x:Name="txbRange" HorizontalAlignment="Left" Margin="521,277,0,0" TextWrapping="Wrap" Text="Window range:" VerticalAlignment="Top" Height="30" Width="94"/>
+                    <Slider x:Name="sliWindowRange" HorizontalAlignment="Left" Margin="620,277,0,0" VerticalAlignment="Top" Width="156" AutoToolTipPlacement="BottomRight" Maximum="30" Minimum="5" Cursor="Arrow"/>
+                    <TextBox x:Name="txtSearchTerm" HorizontalAlignment="Left" Height="23" Margin="139,281,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBlock x:Name="txbSearchTerm" HorizontalAlignment="Left" Margin="22,281,0,0" TextWrapping="Wrap" Text="Enter Search Term:" VerticalAlignment="Top" Height="30" Width="112"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tabAnExtra" Header="An Extra (in case)" Margin="-2,-2,-2,0">
+                <Grid Background="#FFE5E5E5" Margin="0,-1,0,1">
+                    <TextBox x:Name="txtConcordanceLines1" HorizontalAlignment="Left" Height="226" Margin="56,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="659"/>
+                    <Button x:Name="btnMakeConcordance1" Content="Make Concordance Lines!" HorizontalAlignment="Left" Margin="264,277,0,0" VerticalAlignment="Top" Width="146" Height="30"/>
+                    <TextBlock x:Name="txbRange1" HorizontalAlignment="Left" Margin="521,277,0,0" TextWrapping="Wrap" Text="Window range:" VerticalAlignment="Top" Height="30" Width="94"/>
+                    <Slider x:Name="sliWindowRange1" HorizontalAlignment="Left" Margin="620,277,0,0" VerticalAlignment="Top" Width="156" AutoToolTipPlacement="BottomRight" Maximum="30" Minimum="5" Cursor="None"/>
+                    <TextBox x:Name="txtSearchTerm1" HorizontalAlignment="Left" Height="23" Margin="139,281,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBlock x:Name="txbSearchTerm1" HorizontalAlignment="Left" Margin="22,281,0,0" TextWrapping="Wrap" Text="Enter Search Term:" VerticalAlignment="Top" Height="30" Width="112"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>

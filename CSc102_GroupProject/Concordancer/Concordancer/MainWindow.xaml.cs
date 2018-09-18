@@ -77,32 +77,53 @@ namespace Concordancer
             //TODO: must take the loadedText and send it to frequency counter
             //what the frequency counter returns must be shown in the txtFreqList in an orderly fashion
             cleanedText = removePunctuation(loadedText.ToLower());  //uses the efficient method to display the book without punctuation
-            string[] totalWords = loadedText.Split();
+            string[] totalWords = cleanedText.Split();
             Dictionary<string, int> wordList = frequencyCounter(totalWords);
-            foreach (string k in wordList.Keys)
+            var myList = wordList.ToList();
+
+            myList.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value));
+
+            foreach (KeyValuePair<string, int> k in myList)
             {
-                txtFreqList.Text += string.Format("'{0}' has {1} occurrence(s) \n", k, wordList[k]);
+                string tabs = "\t";
+                if (k.Key.Length < 8)
+                {
+                    tabs += "\t";
+                }
+                txtFreqList.Text += string.Format("{0} {1} has {2} occurances", k.Key, tabs, k.Value);
+                txtFreqList.Text += "\n";
             }
 
         }
-
         private Dictionary<string, int> frequencyCounter(string[] textArray)
         {
             //TODO: needs to sort all items in the array
             //then count occurrence of each unique item (maybe use dictionary and return it instead of an array of arrays?)
             //needs to associate a count with each new word it encounters
             Dictionary<string, int> wordCounts = new Dictionary<string, int>();
-            foreach (string ss in textArray)
+            
+            List<string> textList = textArray.ToList();
+            textList.RemoveAll(p => string.IsNullOrEmpty(p));
+            while (textList.Count > 0)
             {
-                if (wordCounts.ContainsKey(ss))
+                int i = 0;
+                string first = textList[0];
+                int count = 0;
+                while (i < textList.Count)
                 {
-                    wordCounts[ss]++;
+                    if (first == textList[i])
+                    {
+                        count++;
+                        textList.RemoveAt(i);
+                    }
+                    else
+                    {
+                        i++;
+                    }
                 }
-                else
-                {
-                    wordCounts[ss] = 1;
-                }
+                wordCounts[first] = count;
             }
+           
             return wordCounts;
         }
     }

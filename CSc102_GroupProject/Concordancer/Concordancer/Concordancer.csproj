@@ -4,11 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-<<<<<<< HEAD
-    <ProjectGuid>{F665CCA4-1778-4D81-92E2-552190A947E3}</ProjectGuid>
-=======
     <ProjectGuid>{E6DE3AEC-34F5-4478-B66B-DFAC709E8BE3}</ProjectGuid>
->>>>>>> 197246fb9e1d841ba3367f215b37788025b3cb32
     <OutputType>WinExe</OutputType>
     <RootNamespace>Concordancer</RootNamespace>
     <AssemblyName>Concordancer</AssemblyName>
