@@ -21,7 +21,7 @@
             <TabItem x:Name="tabConcordanceLines" Header="Concordance Lines">
                 <Grid Background="#FFE5E5E5" Margin="0,-1,0,1">
                     <TextBox x:Name="txtConcordanceLines" HorizontalAlignment="Left" Height="226" Margin="56,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="659"/>
-                    <Button x:Name="btnMakeConcordance" Content="Make Concordance Lines!" HorizontalAlignment="Left" Margin="264,277,0,0" VerticalAlignment="Top" Width="146" Height="30"/>
+                    <Button x:Name="btnMakeConcordance" Content="Make Concordance Lines!" HorizontalAlignment="Left" Margin="264,277,0,0" VerticalAlignment="Top" Width="146" Height="30" Click="btnMakeConcordance_Click"/>
                     <TextBlock x:Name="txbRange" HorizontalAlignment="Left" Margin="521,277,0,0" TextWrapping="Wrap" Text="Window range:" VerticalAlignment="Top" Height="30" Width="94"/>
                     <Slider x:Name="sliWindowRange" HorizontalAlignment="Left" Margin="620,277,0,0" VerticalAlignment="Top" Width="156" AutoToolTipPlacement="BottomRight" Maximum="30" Minimum="5" Cursor="Arrow"/>
                     <TextBox x:Name="txtSearchTerm" HorizontalAlignment="Left" Height="23" Margin="139,281,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>

@@ -54,7 +54,7 @@ namespace Concordancer
         private void btnLoad_Click(object sender, RoutedEventArgs e)
         {
             string sString = System.IO.File.ReadAllText(@txtLocation.Text);
-            loadedText = sString;  //uses the efficient method to display the book without punctuation
+            loadedText = sString; 
             MessageBox.Show("Your file has been loaded!", "Success");
 
         }
@@ -125,6 +125,33 @@ namespace Concordancer
             }
            
             return wordCounts;
+        }
+
+        private void btnMakeConcordance_Click(object sender, RoutedEventArgs e)
+        {
+            int range = Convert.ToInt32(sliWindowRange.Value);
+            string searchTerm = txtSearchTerm.Text;
+            string[] punctuatedText = loadedText.Split();
+            int i = 0;
+            while (punctuatedText.Length > 0)
+            {
+                if (searchTerm == punctuatedText[i])
+                {
+                    try
+                    {
+                        for (int n = i-range; n < i + range; i++)
+                        {
+                            txtConcordanceLines.Text += punctuatedText[n] + " ";
+
+                        }
+                        txtConcordanceLines.Text += "\n";
+                    }
+                    catch (Exception E)
+                    {
+
+                    }
+                }
+            }
         }
     }
 }
