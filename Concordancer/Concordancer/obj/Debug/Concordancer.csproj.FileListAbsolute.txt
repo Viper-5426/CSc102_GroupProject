@@ -1,0 +1,15 @@
+D:\GitRepos\Source\Repos\CSc102_GroupProject\Concordancer\Concordancer\bin\Debug\Concordancer.exe.config
+D:\GitRepos\Source\Repos\CSc102_GroupProject\Concordancer\Concordancer\bin\Debug\Concordancer.exe
+D:\GitRepos\Source\Repos\CSc102_GroupProject\Concordancer\Concordancer\bin\Debug\Concordancer.pdb
+D:\GitRepos\Source\Repos\CSc102_GroupProject\Concordancer\Concordancer\obj\Debug\Concordancer.csprojAssemblyReference.cache
+D:\GitRepos\Source\Repos\CSc102_GroupProject\Concordancer\Concordancer\obj\Debug\MainWindow.g.cs
+D:\GitRepos\Source\Repos\CSc102_GroupProject\Concordancer\Concordancer\obj\Debug\App.g.cs
+D:\GitRepos\Source\Repos\CSc102_GroupProject\Concordancer\Concordancer\obj\Debug\Concordancer_MarkupCompile.cache
+D:\GitRepos\Source\Repos\CSc102_GroupProject\Concordancer\Concordancer\obj\Debug\Concordancer_MarkupCompile.lref
+D:\GitRepos\Source\Repos\CSc102_GroupProject\Concordancer\Concordancer\obj\Debug\MainWindow.baml
+D:\GitRepos\Source\Repos\CSc102_GroupProject\Concordancer\Concordancer\obj\Debug\Concordancer.g.resources
+D:\GitRepos\Source\Repos\CSc102_GroupProject\Concordancer\Concordancer\obj\Debug\Concordancer.Properties.Resources.resources
+D:\GitRepos\Source\Repos\CSc102_GroupProject\Concordancer\Concordancer\obj\Debug\Concordancer.csproj.GenerateResource.cache
+D:\GitRepos\Source\Repos\CSc102_GroupProject\Concordancer\Concordancer\obj\Debug\Concordancer.csproj.CoreCompileInputs.cache
+D:\GitRepos\Source\Repos\CSc102_GroupProject\Concordancer\Concordancer\obj\Debug\Concordancer.exe
+D:\GitRepos\Source\Repos\CSc102_GroupProject\Concordancer\Concordancer\obj\Debug\Concordancer.pdb

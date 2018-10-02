@@ -129,19 +129,32 @@ namespace Concordancer
 
         private void btnMakeConcordance_Click(object sender, RoutedEventArgs e)
         {
+            
             int range = Convert.ToInt32(sliWindowRange.Value);
             string searchTerm = txtSearchTerm.Text;
             string[] punctuatedText = loadedText.Split();
+            string[] depunctuatedText = cleanedText.Split();
             int i = 0;
-            while (punctuatedText.Length > 0)
+
+            //searches through the unsorted, depunctuated text to find words matching to input
+            //then it prints the range of words to the left and right of the input
+            while (i < depunctuatedText.Length)
             {
-                if (searchTerm == punctuatedText[i])
+                if (searchTerm.CompareTo(depunctuatedText[i]) == 0)
                 {
                     try
                     {
-                        for (int n = i-range; n < i + range; i++)
+                        for (int n = i-range; n < i + range; n++)
                         {
-                            txtConcordanceLines.Text += punctuatedText[n] + " ";
+                            if (searchTerm.CompareTo(depunctuatedText[n]) == 0)
+                            {
+                                txtConcordanceLines.Text += punctuatedText[n].ToUpper() + " ";
+                            }
+                            else
+                            {
+                                txtConcordanceLines.Text += punctuatedText[n] + " ";
+                            }
+                            
 
                         }
                         txtConcordanceLines.Text += "\n";
@@ -151,6 +164,7 @@ namespace Concordancer
 
                     }
                 }
+                i++;
             }
         }
     }
