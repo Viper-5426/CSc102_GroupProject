@@ -16,6 +16,7 @@
                 <Grid Background="#FFE5E5E5">
                     <TextBox x:Name="txtFreqList" HorizontalAlignment="Left" Height="294" TextWrapping="Wrap" VerticalAlignment="Top" Width="651"/>
                     <Button x:Name="btnFrequency" Content="Count &#xD;&#xA;Frequencies!" HorizontalAlignment="Left" Margin="668,235,0,0" VerticalAlignment="Top" Width="98" Height="59" Click="btnFrequency_Click"/>
+                    <TextBox x:Name="txtLength" HorizontalAlignment="Left" Height="203" Margin="691,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="tabConcordanceLines" Header="Concordance Lines">

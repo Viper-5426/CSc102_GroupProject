@@ -87,7 +87,7 @@ namespace Concordancer
             int i = 0;
             while (i < depunctuatedText.Length)
             {
-                if (searchTerm == depunctuatedText[i])
+                if (searchTerm.CompareTo(depunctuatedText[i]) == 0)
                 {
                     result.Add(i);
                 }
@@ -158,14 +158,17 @@ namespace Concordancer
             string searchTerm = txtSearchTerm.Text;
             punctuatedText = loadedText.Split();
             punctuatedText = stripEmptyAndNull(punctuatedText);
+            txtLength.Text = "" + depunctuatedText.Length;
+            txtLength.Text += "\n" + punctuatedText.Length;
             int[] indexes = findMatches(depunctuatedText, searchTerm);
             foreach (int index in indexes)
             {
-                if ((index - range) > 0 && (index + range) < punctuatedText.Length)
+                if ((index - range) > 0 && (index + range+1) < punctuatedText.Length)
                 {
-                    for (int r = index - range; r < range + index; r++)
+                    for (int r = index - range; r < range + index+1; r++)
                     {
-                        txtConcordanceLines.Text += punctuatedText[r] + " ";
+                        //txtConcordanceLines.Text += punctuatedText[r] + " ";
+                        txtConcordanceLines.Text += depunctuatedText[r] + " ";
 
                     }
                 }
@@ -173,19 +176,21 @@ namespace Concordancer
                 {
                     for (int r = 0; r < range + index; r++)
                     {
-                        txtConcordanceLines.Text += punctuatedText[r] + " ";
+                        //txtConcordanceLines.Text += punctuatedText[r] + " ";
+                        txtConcordanceLines.Text += depunctuatedText[r] + " ";
                     }
                 }
                 else if ((index + range) > punctuatedText.Length)
                 {
                     for (int r = index - range; r < punctuatedText.Length; r++)
                     {
-                        txtConcordanceLines.Text += punctuatedText[r] + " ";
+                        //txtConcordanceLines.Text += punctuatedText[r] + " ";
+                        txtConcordanceLines.Text += depunctuatedText[r] + " ";
                     }
                 }
                 txtConcordanceLines.Text += "\n";
             }
-
+            
             //int i = 0;
 
             ////searches through the unsorted, depunctuated text to find words matching to input
