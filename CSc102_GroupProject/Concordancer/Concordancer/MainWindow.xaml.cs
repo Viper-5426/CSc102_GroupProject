@@ -23,6 +23,9 @@ namespace Concordancer
     {
         string loadedText = "";
         string cleanedText = "";
+        string[] depunctuatedText;  //cleanedText split into an array and stripped of any null and empty items
+        string[] punctuatedText; //loadedText split into array and stripped of null and empty items
+
 
         public MainWindow()
         {
@@ -71,14 +74,36 @@ namespace Concordancer
             }
             return newString.ToString();
         }
+        private string[] stripEmptyAndNull(string[] text)
+        {
+            List<string> result; //totalWords stripped of all empty strings and null items
+            result = text.ToList();
+            result.RemoveAll(p => string.IsNullOrEmpty(p));
+            return result.ToArray();
+        }
+        private int[] findMatches(string[] depunctuatedText, string searchTerm)
+        {
+            List<int> result = new List<int>();
+            int i = 0;
+            while (i < depunctuatedText.Length)
+            {
+                if (searchTerm == depunctuatedText[i])
+                {
+                    result.Add(i);
+                }
+                i++;
+            }
+            return result.ToArray();
+        }
 
         private void btnFrequency_Click(object sender, RoutedEventArgs e)
         {
             //TODO: must take the loadedText and send it to frequency counter
             //what the frequency counter returns must be shown in the txtFreqList in an orderly fashion
             cleanedText = removePunctuation(loadedText.ToLower());  //uses the efficient method to display the book without punctuation
-            string[] totalWords = cleanedText.Split();
-            Dictionary<string, int> wordList = frequencyCounter(totalWords);
+            depunctuatedText = cleanedText.Split();
+            depunctuatedText = stripEmptyAndNull(depunctuatedText);
+            Dictionary<string, int> wordList = frequencyCounter(depunctuatedText);
             var myList = wordList.ToList();
 
             myList.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value));
@@ -101,9 +126,8 @@ namespace Concordancer
             //then count occurrence of each unique item (maybe use dictionary and return it instead of an array of arrays?)
             //needs to associate a count with each new word it encounters
             Dictionary<string, int> wordCounts = new Dictionary<string, int>();
-            
-            List<string> textList = textArray.ToList();
-            textList.RemoveAll(p => string.IsNullOrEmpty(p));
+            List<string> textList; //totalWords stripped of all empty strings and null items
+            textList = textArray.ToList();
             while (textList.Count > 0)
             {
                 int i = 0;
@@ -123,49 +147,77 @@ namespace Concordancer
                 }
                 wordCounts[first] = count;
             }
-           
+
             return wordCounts;
         }
 
         private void btnMakeConcordance_Click(object sender, RoutedEventArgs e)
         {
-            
+            txtConcordanceLines.Text = "";
             int range = Convert.ToInt32(sliWindowRange.Value);
             string searchTerm = txtSearchTerm.Text;
-            string[] punctuatedText = loadedText.Split();
-            string[] depunctuatedText = cleanedText.Split();
-            int i = 0;
-
-            //searches through the unsorted, depunctuated text to find words matching to input
-            //then it prints the range of words to the left and right of the input
-            while (i < depunctuatedText.Length)
+            punctuatedText = loadedText.Split();
+            punctuatedText = stripEmptyAndNull(punctuatedText);
+            int[] indexes = findMatches(depunctuatedText, searchTerm);
+            foreach (int index in indexes)
             {
-                if (searchTerm.CompareTo(depunctuatedText[i]) == 0)
+                if ((index - range) > 0 && (index + range) < punctuatedText.Length)
                 {
-                    try
+                    for (int r = index - range; r < range + index; r++)
                     {
-                        for (int n = i-range; n < i + range; n++)
-                        {
-                            if (searchTerm.CompareTo(depunctuatedText[n]) == 0)
-                            {
-                                txtConcordanceLines.Text += punctuatedText[n].ToUpper() + " ";
-                            }
-                            else
-                            {
-                                txtConcordanceLines.Text += punctuatedText[n] + " ";
-                            }
-                            
-
-                        }
-                        txtConcordanceLines.Text += "\n";
-                    }
-                    catch (Exception E)
-                    {
+                        txtConcordanceLines.Text += punctuatedText[r] + " ";
 
                     }
                 }
-                i++;
+                else if ((index - range) < 0)
+                {
+                    for (int r = 0; r < range + index; r++)
+                    {
+                        txtConcordanceLines.Text += punctuatedText[r] + " ";
+                    }
+                }
+                else if ((index + range) > punctuatedText.Length)
+                {
+                    for (int r = index - range; r < punctuatedText.Length; r++)
+                    {
+                        txtConcordanceLines.Text += punctuatedText[r] + " ";
+                    }
+                }
+                txtConcordanceLines.Text += "\n";
             }
+
+            //int i = 0;
+
+            ////searches through the unsorted, depunctuated text to find words matching to input
+            ////then it prints the range of words to the left and right of the input
+            //while (i < depunctuatedText.Length)
+            //{
+            //    if (searchTerm.CompareTo(depunctuatedText[i]) == 0)
+            //    {
+            //        try
+            //        {
+            //            for (int n = i-range; n < i + range; n++)
+            //            {
+            //                if (searchTerm.CompareTo(depunctuatedText[n]) == 0)
+            //                {
+            //                    txtConcordanceLines.Text += punctuatedText[n].ToUpper() + " ";
+            //                }
+            //                else
+            //                {
+            //                    txtConcordanceLines.Text += punctuatedText[n] + " ";
+            //                }
+                            
+
+            //            }
+            //            txtConcordanceLines.Text += "\n";
+            //        }
+            //        catch (Exception E)
+            //        {
+
+            //        }
+            //    }
+            //    i++;
+            //}
         }
     }
 }
