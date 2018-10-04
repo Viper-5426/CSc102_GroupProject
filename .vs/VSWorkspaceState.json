@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Concordancer",
+    "\\Concordancer\\Concordancer",
+    "\\CSc102_GroupProject",
+    "\\CSc102_GroupProject\\Concordancer"
   ],
+  "SelectedNode": "\\CSc102_GroupProject\\Concordancer\\Concordancer.sln",
   "PreviewInSolutionExplorer": false
 }

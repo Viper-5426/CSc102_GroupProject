@@ -20,14 +20,15 @@
                 <Grid Background="#FFE5E5E5">
                     <TextBox x:Name="txtFreqList" HorizontalAlignment="Left" Height="294" TextWrapping="Wrap" VerticalAlignment="Top" Width="651"/>
                     <Button x:Name="btnFrequency" Content="Count &#xD;&#xA;Frequencies!" HorizontalAlignment="Left" Margin="668,235,0,0" VerticalAlignment="Top" Width="98" Height="59" Click="btnFrequency_Click"/>
+                    <TextBox x:Name="txtLength" HorizontalAlignment="Left" Height="203" Margin="691,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="tabConcordanceLines" Header="Concordance Lines">
                 <Grid Background="#FFE5E5E5" Margin="0,-1,0,1">
-                    <TextBox x:Name="txtConcordanceLines" HorizontalAlignment="Left" Height="226" Margin="56,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="659"/>
+                    <TextBox x:Name="txtConcordanceLines" HorizontalAlignment="Center" Height="226" Margin="59,20,68,71" TextWrapping="Wrap" VerticalAlignment="Center" Width="659"/>
                     <Button x:Name="btnMakeConcordance" Content="Make Concordance Lines!" HorizontalAlignment="Left" Margin="264,277,0,0" VerticalAlignment="Top" Width="146" Height="30" Click="btnMakeConcordance_Click"/>
                     <TextBlock x:Name="txbRange" HorizontalAlignment="Left" Margin="521,277,0,0" TextWrapping="Wrap" Text="Window range:" VerticalAlignment="Top" Height="30" Width="94"/>
-                    <Slider x:Name="sliWindowRange" HorizontalAlignment="Left" Margin="620,277,0,0" VerticalAlignment="Top" Width="156" AutoToolTipPlacement="BottomRight" Maximum="30" Minimum="5" Cursor="Arrow"/>
+                    <Slider x:Name="sliWindowRange" HorizontalAlignment="Left" Margin="620,277,0,0" VerticalAlignment="Top" Width="156" AutoToolTipPlacement="BottomRight" Minimum="1" Cursor="Arrow"/>
                     <TextBox x:Name="txtSearchTerm" HorizontalAlignment="Left" Height="23" Margin="139,281,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <TextBlock x:Name="txbSearchTerm" HorizontalAlignment="Left" Margin="22,281,0,0" TextWrapping="Wrap" Text="Enter Search Term:" VerticalAlignment="Top" Height="30" Width="112"/>
                 </Grid>
