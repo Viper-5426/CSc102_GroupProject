@@ -23,7 +23,7 @@ namespace Concordancer
     {
         string loadedText = "";
         string cleanedText = "";
-        string[] depunctuatedText;  //cleanedText split into an array and stripped of any null and empty items
+        List<String> lstDepunctuated = new List<string>();  //cleanedText list
         string[] punctuatedText; //loadedText split into array and stripped of null and empty items
 
 
@@ -101,12 +101,18 @@ namespace Concordancer
             //TODO: must take the loadedText and send it to frequency counter
             //what the frequency counter returns must be shown in the txtFreqList in an orderly fashion
             cleanedText = removePunctuation(loadedText.ToLower());  //uses the efficient method to display the book without punctuation
-            depunctuatedText = cleanedText.Split();
-            depunctuatedText = stripEmptyAndNull(depunctuatedText);
-            Dictionary<string, int> wordList = frequencyCounter(depunctuatedText);
+            punctuatedText = loadedText.Split();
+            punctuatedText = stripEmptyAndNull(punctuatedText);
+            int i = 0;
+            foreach (string s in punctuatedText)
+            {
+                lstDepunctuated.Add(removePunctuation(s));
+                i++;
+            }
+            Dictionary<string, int> wordList = frequencyCounter(lstDepunctuated.ToArray());
             var myList = wordList.ToList();
 
-            myList.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value));
+            myList.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value)); //Link syntax
 
             foreach (KeyValuePair<string, int> k in myList)
             {
@@ -128,25 +134,38 @@ namespace Concordancer
             Dictionary<string, int> wordCounts = new Dictionary<string, int>();
             List<string> textList; //totalWords stripped of all empty strings and null items
             textList = textArray.ToList();
-            while (textList.Count > 0)
+
+            foreach (string word in textList)
             {
-                int i = 0;
-                string first = textList[0];
-                int count = 0;
-                while (i < textList.Count)
+                if (wordCounts.ContainsKey(word))
                 {
-                    if (first == textList[i])
-                    {
-                        count++;
-                        textList.RemoveAt(i);
-                    }
-                    else
-                    {
-                        i++;
-                    }
+                    wordCounts[word]++;
                 }
-                wordCounts[first] = count;
+                else
+                {
+                    wordCounts[word] = 1;
+                }
             }
+
+            //while (textList.Count > 0)
+            //{
+            //    int i = 0;
+            //    string first = textList[0];
+            //    int count = 0;
+            //    while (i < textList.Count)
+            //    {
+            //        if (first == textList[i])
+            //        {
+            //            count++;
+            //            textList.RemoveAt(i);
+            //        }
+            //        else
+            //        {
+            //            i++;
+            //        }
+            //    }
+            //    wordCounts[first] = count;
+            //}
 
             return wordCounts;
         }
@@ -156,19 +175,21 @@ namespace Concordancer
             txtConcordanceLines.Text = "";
             int range = Convert.ToInt32(sliWindowRange.Value);
             string searchTerm = txtSearchTerm.Text;
-            punctuatedText = loadedText.Split();
-            punctuatedText = stripEmptyAndNull(punctuatedText);
-            txtLength.Text = "" + depunctuatedText.Length;
+            txtLength.Text = "" + lstDepunctuated.Count;
             txtLength.Text += "\n" + punctuatedText.Length;
-            int[] indexes = findMatches(depunctuatedText, searchTerm);
+            
+            
+            
+            int[] indexes = findMatches(lstDepunctuated.ToArray(), searchTerm.ToLower());
+
             foreach (int index in indexes)
             {
                 if ((index - range) > 0 && (index + range+1) < punctuatedText.Length)
                 {
                     for (int r = index - range; r < range + index+1; r++)
                     {
-                        //txtConcordanceLines.Text += punctuatedText[r] + " ";
-                        txtConcordanceLines.Text += depunctuatedText[r] + " ";
+                        txtConcordanceLines.Text += punctuatedText[r] + " ";
+                        //txtConcordanceLines.Text += depunctuatedText[r] + " ";
 
                     }
                 }
@@ -176,16 +197,16 @@ namespace Concordancer
                 {
                     for (int r = 0; r < range + index; r++)
                     {
-                        //txtConcordanceLines.Text += punctuatedText[r] + " ";
-                        txtConcordanceLines.Text += depunctuatedText[r] + " ";
+                        txtConcordanceLines.Text += punctuatedText[r] + " ";
+                        //txtConcordanceLines.Text += depunctuatedText[r] + " ";
                     }
                 }
                 else if ((index + range) > punctuatedText.Length)
                 {
                     for (int r = index - range; r < punctuatedText.Length; r++)
                     {
-                        //txtConcordanceLines.Text += punctuatedText[r] + " ";
-                        txtConcordanceLines.Text += depunctuatedText[r] + " ";
+                        txtConcordanceLines.Text += punctuatedText[r] + " ";
+                        //txtConcordanceLines.Text += depunctuatedText[r] + " ";
                     }
                 }
                 txtConcordanceLines.Text += "\n";
