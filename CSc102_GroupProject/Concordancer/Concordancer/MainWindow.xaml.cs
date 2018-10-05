@@ -25,6 +25,8 @@ namespace Concordancer
         string cleanedText = "";
         List<String> lstDepunctuated = new List<string>();  //cleanedText list
         string[] punctuatedText; //loadedText split into array and stripped of null and empty items
+        Dictionary<string, int> collocateList = new Dictionary<string, int>();
+
 
 
         public MainWindow()
@@ -115,7 +117,7 @@ namespace Concordancer
 
             myList.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value)); //Link syntax
 
-            string result = "";
+            string result = "Freq.\tWord\n\n";
 
             foreach (string k in wordList.Keys)
             {
@@ -155,22 +157,26 @@ namespace Concordancer
             string searchTerm = txtSearchTerm.Text;
             txtLength.Text = "" + lstDepunctuated.Count;
             txtLength.Text += "\n" + punctuatedText.Length;
-            
-            
-            
+
+
+
             int[] indexes = findMatches(lstDepunctuated.ToArray(), searchTerm.ToLower());
 
             foreach (int index in indexes)
             {
-                if ((index - range) > 0 && (index + range+1) < punctuatedText.Length)
+                if ((index - range) > 0 && (index + range + 1) < punctuatedText.Length)
                 {
-                    for (int r = index - range; r < range + index+1; r++)
+                    for (int r = index - range; r < range + index + 1; r++)
                     {
                         if (r == index)
                         {
                             txtConcordanceLines.Text += punctuatedText[r].ToUpper() + " ";
                         }
-                        txtConcordanceLines.Text += punctuatedText[r] + " ";
+                        else
+                        {
+                            txtConcordanceLines.Text += punctuatedText[r] + " ";
+
+                        }
                         //txtConcordanceLines.Text += depunctuatedText[r] + " ";
 
                     }
@@ -183,7 +189,10 @@ namespace Concordancer
                         {
                             txtConcordanceLines.Text += punctuatedText[r].ToUpper() + " ";
                         }
-                        txtConcordanceLines.Text += punctuatedText[r] + " ";
+                        else
+                        {
+                            txtConcordanceLines.Text += punctuatedText[r] + " ";
+                        }
                         //txtConcordanceLines.Text += depunctuatedText[r] + " ";
                     }
                 }
@@ -195,19 +204,22 @@ namespace Concordancer
                         {
                             txtConcordanceLines.Text += punctuatedText[r].ToUpper() + " ";
                         }
-                        txtConcordanceLines.Text += punctuatedText[r] + " ";
+                        else
+                        {
+                            txtConcordanceLines.Text += punctuatedText[r] + " ";
+                        }
                         //txtConcordanceLines.Text += depunctuatedText[r] + " ";
                     }
                 }
                 txtConcordanceLines.Text += "\n";
                 lblOccurrences.Content = String.Format("Found {0} occurrences of '{1}'", indexes.Length, searchTerm);
             }
-          
+
         }
 
         private void btnSort_Click(object sender, RoutedEventArgs e)
         {
-            txtFreqList.Text = "";
+            txtFreqList.Text = "Freq.\tWord\n\n";
             Dictionary<string, int> wordList = frequencyCounter(lstDepunctuated.ToArray());
             var myList = wordList.ToList();
 
@@ -226,7 +238,7 @@ namespace Concordancer
 
         private void btnSort_Click2(object sender, RoutedEventArgs e)
         {
-            txtFreqList.Text = "";
+            txtFreqList.Text = "Freq.\tWord\n\n";
             Dictionary<string, int> wordList = frequencyCounter(lstDepunctuated.ToArray());
             var myList = wordList.ToList();
 
@@ -240,6 +252,96 @@ namespace Concordancer
                 }
                 txtFreqList.Text += string.Format("{0} --\t{1}", k.Value, k.Key);
                 txtFreqList.Text += "\n";
+            }
+        }
+
+        private void btnListCollocates_Click(object sender, RoutedEventArgs e)
+        {
+            txtCollocates.Text = "";
+            string searchTerm = txtSearchCollocates.Text;
+            int[] indexes = findMatches(lstDepunctuated.ToArray(), searchTerm.ToLower());
+            List<string> surroundingWds = new List<string>();
+            int range = Convert.ToInt32(sliWindowRange.Value);
+
+            foreach (int index in indexes)
+            {
+                if ((index - range) > 0 && (index + range + 1) < lstDepunctuated.Count)
+                {
+                    for (int r = index - range; r < range + index + 1; r++)
+                    {
+                        if (r != index)
+                        {
+                            surroundingWds.Add(lstDepunctuated[r]);
+                        }
+
+                    }
+                }
+                else if ((index - range) < 0)
+                {
+                    for (int r = 0; r < range + index; r++)
+                    {
+                        if (r == index)
+                        {
+                            surroundingWds.Add(lstDepunctuated[r]);
+                        }
+                    }
+                }
+                else if ((index + range) > punctuatedText.Length)
+                {
+                    for (int r = index - range; r < punctuatedText.Length; r++)
+                    {
+                        if (r == index)
+                        {
+                            surroundingWds.Add(lstDepunctuated[r]);
+                        }
+                    }
+                }
+
+            }
+            collocateList = frequencyCounter(surroundingWds.ToArray());  //global variable
+            string result = "Freq.\tCollocate\n\n";
+
+            foreach (string k in collocateList.Keys)
+            {
+                result += String.Format("{0} --\t {1}\n", collocateList[k], k);
+            }
+            txtCollocates.Text = result;
+            lblCountCollocates.Content = String.Format("Listing {0} collocates of '{1}'", surroundingWds.Count(), searchTerm);
+        }
+
+        private void btnSortFreq_Click(object sender, RoutedEventArgs e)
+        {
+            txtCollocates.Text = "Freq.\tCollocate\n\n";
+            var myList = collocateList.ToList();
+
+            myList.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value)); //Link syntax
+            foreach (KeyValuePair<string, int> k in myList)
+            {
+                string tabs = "\t";
+                if (k.Key.Length < 8)
+                {
+                    tabs += "\t";
+                }
+                txtCollocates.Text += string.Format("{0} --\t{1}", k.Value, k.Key);
+                txtCollocates.Text += "\n";
+            }
+        }
+
+        private void btnSortAlph_Click(object sender, RoutedEventArgs e)
+        {
+            txtCollocates.Text = "Freq.\tCollocate\n\n";
+            var myList = collocateList.ToList();
+
+            myList.Sort((pair1, pair2) => pair2.Key.CompareTo(pair1.Key)); //Link syntax
+            foreach (KeyValuePair<string, int> k in myList)
+            {
+                string tabs = "\t";
+                if (k.Key.Length < 8)
+                {
+                    tabs += "\t";
+                }
+                txtCollocates.Text += string.Format("{0} --\t{1}", k.Value, k.Key);
+                txtCollocates.Text += "\n";
             }
         }
     }
