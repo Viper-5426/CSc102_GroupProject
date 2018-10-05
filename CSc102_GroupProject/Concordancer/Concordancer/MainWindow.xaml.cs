@@ -119,20 +119,9 @@ namespace Concordancer
 
             foreach (string k in wordList.Keys)
             {
-                result += String.Format("{0} \t\t {1}\n", k, wordList[k]);
+                result += String.Format("{0} \t {1}\n", k, wordList[k]);
             }
             txtFreqList.Text = result;
-
-            //foreach (KeyValuePair<string, int> k in myList)
-            //{
-            //    string tabs = "\t";
-            //    if (k.Key.Length < 8)
-            //    {
-            //        tabs += "\t";
-            //    }
-            //    txtFreqList.Text += string.Format("{0} {1} has {2} occurances", k.Key, tabs, k.Value);
-            //    txtFreqList.Text += "\n";
-            //}
 
         }
         private Dictionary<string, int> frequencyCounter(string[] textArray)
@@ -253,6 +242,25 @@ namespace Concordancer
             //    }
             //    i++;
             //}
+        }
+
+        private void btnSort_Click(object sender, RoutedEventArgs e)
+        {
+            txtFreqList.Text = "";
+            Dictionary<string, int> wordList = frequencyCounter(lstDepunctuated.ToArray());
+            var myList = wordList.ToList();
+
+            myList.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value)); //Link syntax
+            foreach (KeyValuePair<string, int> k in myList)
+            {
+                string tabs = "\t";
+                if (k.Key.Length < 8)
+                {
+                    tabs += "\t";
+                }
+                txtFreqList.Text += string.Format("{0} {1} has {2} occurances", k.Key, tabs, k.Value);
+                txtFreqList.Text += "\n";
+            }
         }
     }
 }
