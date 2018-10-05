@@ -358,5 +358,36 @@ namespace Concordancer
 
 			File.WriteAllText(x, txtFreqList.Text);
 		}
+
+		private void Button_Click_1(object sender, RoutedEventArgs e)
+		{
+			string directory = @"D:\Concordancer Results\";
+			string x = System.IO.Path.Combine(directory, "Conc_results.txt");
+
+			if (!Directory.Exists(directory))
+			{
+				Directory.CreateDirectory(directory);
+			}
+
+			File.WriteAllText(x, txtConcordanceLines.Text);
+		}
+
+		private void Button_Click_2(object sender, RoutedEventArgs e)
+		{
+			string directory = @"D:\Concordancer Results\";
+			string x = System.IO.Path.Combine(directory, "Collo_results.txt");
+
+			if (!Directory.Exists(directory))
+			{
+				Directory.CreateDirectory(directory);
+			}
+
+			File.WriteAllText(x, txtCollocates.Text);
+		}
+
+		private void txtFreqList_TextChanged(object sender, TextChangedEventArgs e)
+		{
+
+		}
 	}
 }
