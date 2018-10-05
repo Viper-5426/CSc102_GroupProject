@@ -21,26 +21,28 @@
                     <TextBox x:Name="txtFreqList" HorizontalAlignment="Left" Height="294" TextWrapping="Wrap" VerticalAlignment="Top" Width="651" VerticalScrollBarVisibility="Auto"/>
                     <Button x:Name="btnFrequency" Content="Count &#xD;&#xA;Frequencies!" HorizontalAlignment="Left" Margin="668,218,0,0" VerticalAlignment="Top" Width="98" Height="35" Click="btnFrequency_Click"/>
                     <TextBox x:Name="txtLength" HorizontalAlignment="Left" Height="203" Margin="691,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42"/>
-                    <Button x:Name="btnSort" Content="Sort!" HorizontalAlignment="Left" Margin="680,274,0,0" VerticalAlignment="Top" Width="75" Click="btnSort_Click"/>
+                    <Button x:Name="btnSort" Content="Sort (freq.)" HorizontalAlignment="Left" Margin="679,258,0,0" VerticalAlignment="Top" Width="75" Click="btnSort_Click"/>
+                    <Button x:Name="btnSort_2" Content="Sort (alph.)" HorizontalAlignment="Left" Margin="679,283,0,0" VerticalAlignment="Top" Width="75" Click="btnSort_Click2"/>
                 </Grid>
             </TabItem>
             <TabItem x:Name="tabConcordanceLines" Header="Concordance Lines">
                 <Grid Background="#FFE5E5E5" Margin="0,-1,0,1">
-                    <TextBox x:Name="txtConcordanceLines" HorizontalAlignment="Center" Height="226" Margin="59,20,68,71" TextWrapping="Wrap" VerticalAlignment="Center" Width="659" TextAlignment="center" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
+                    <TextBox x:Name="txtConcordanceLines" HorizontalAlignment="Center" Height="210" Margin="10,41,22,66" TextWrapping="Wrap" VerticalAlignment="Center" Width="754" TextAlignment="center" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
                     <Button x:Name="btnMakeConcordance" Content="Make Concordance Lines!" HorizontalAlignment="Left" Margin="264,277,0,0" VerticalAlignment="Top" Width="146" Height="30" Click="btnMakeConcordance_Click"/>
                     <TextBlock x:Name="txbRange" HorizontalAlignment="Left" Margin="521,277,0,0" TextWrapping="Wrap" Text="Window range:" VerticalAlignment="Top" Height="30" Width="94"/>
                     <Slider x:Name="sliWindowRange" HorizontalAlignment="Left" Margin="620,277,0,0" VerticalAlignment="Top" Width="156" AutoToolTipPlacement="BottomRight" Minimum="1" Cursor="Arrow" Maximum="15"/>
                     <TextBox x:Name="txtSearchTerm" HorizontalAlignment="Left" Height="23" Margin="139,281,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <TextBlock x:Name="txbSearchTerm" HorizontalAlignment="Left" Margin="22,281,0,0" TextWrapping="Wrap" Text="Enter Search Term:" VerticalAlignment="Top" Height="30" Width="112"/>
+                    <Label x:Name="lblOccurrences" Content="" HorizontalAlignment="Left" Margin="59,10,0,0" VerticalAlignment="Top" Width="200"/>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="tabAnExtra" Header="An Extra (in case)" Margin="-2,-2,-2,0">
+            <TabItem x:Name="tabAnExtra" Header="Collocates" Margin="-2,-2,-2,0">
                 <Grid Background="#FFE5E5E5" Margin="0,-1,0,1">
-                    <TextBox x:Name="txtConcordanceLines1" HorizontalAlignment="Left" Height="226" Margin="56,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="659"/>
-                    <Button x:Name="btnMakeConcordance1" Content="Make Concordance Lines!" HorizontalAlignment="Left" Margin="264,277,0,0" VerticalAlignment="Top" Width="146" Height="30"/>
+                    <TextBox x:Name="txtCollocates" HorizontalAlignment="Left" Height="226" Margin="56,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="659"/>
+                    <Button x:Name="btnListCollocates" Content="List Collocates" HorizontalAlignment="Left" Margin="264,277,0,0" VerticalAlignment="Top" Width="146" Height="30"/>
                     <TextBlock x:Name="txbRange1" HorizontalAlignment="Left" Margin="521,277,0,0" TextWrapping="Wrap" Text="Window range:" VerticalAlignment="Top" Height="30" Width="94"/>
-                    <Slider x:Name="sliWindowRange1" HorizontalAlignment="Left" Margin="620,277,0,0" VerticalAlignment="Top" Width="156" AutoToolTipPlacement="BottomRight" Maximum="30" Minimum="5" Cursor="None"/>
-                    <TextBox x:Name="txtSearchTerm1" HorizontalAlignment="Left" Height="23" Margin="139,281,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <Slider x:Name="sliWindowRangeColl" HorizontalAlignment="Left" Margin="620,277,0,0" VerticalAlignment="Top" Width="156" AutoToolTipPlacement="BottomRight" Maximum="30" Minimum="5" Cursor="None"/>
+                    <TextBox x:Name="txtSearchCollocates" HorizontalAlignment="Left" Height="23" Margin="139,281,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <TextBlock x:Name="txbSearchTerm1" HorizontalAlignment="Left" Margin="22,281,0,0" TextWrapping="Wrap" Text="Enter Search Term:" VerticalAlignment="Top" Height="30" Width="112"/>
                 </Grid>
             </TabItem>

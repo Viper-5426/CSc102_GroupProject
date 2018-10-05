@@ -107,7 +107,7 @@ namespace Concordancer
             int i = 0;
             foreach (string s in punctuatedText)
             {
-                lstDepunctuated.Add(removePunctuation(s));
+                lstDepunctuated.Add(removePunctuation(s.ToLower()));
                 i++;
             }
             Dictionary<string, int> wordList = frequencyCounter(lstDepunctuated.ToArray());
@@ -119,7 +119,7 @@ namespace Concordancer
 
             foreach (string k in wordList.Keys)
             {
-                result += String.Format("{0} \t {1}\n", k, wordList[k]);
+                result += String.Format("{0} --\t {1}\n", wordList[k], k);
             }
             txtFreqList.Text = result;
 
@@ -144,26 +144,6 @@ namespace Concordancer
                     wordCounts[word] = 1;
                 }
             }
-
-            //while (textList.Count > 0)
-            //{
-            //    int i = 0;
-            //    string first = textList[0];
-            //    int count = 0;
-            //    while (i < textList.Count)
-            //    {
-            //        if (first == textList[i])
-            //        {
-            //            count++;
-            //            textList.RemoveAt(i);
-            //        }
-            //        else
-            //        {
-            //            i++;
-            //        }
-            //    }
-            //    wordCounts[first] = count;
-            //}
 
             return wordCounts;
         }
@@ -208,40 +188,9 @@ namespace Concordancer
                     }
                 }
                 txtConcordanceLines.Text += "\n";
+                lblOccurrences.Content = String.Format("Found {0} occurrences of '{1}'", indexes.Length, searchTerm);
             }
-            
-            //int i = 0;
-
-            ////searches through the unsorted, depunctuated text to find words matching to input
-            ////then it prints the range of words to the left and right of the input
-            //while (i < depunctuatedText.Length)
-            //{
-            //    if (searchTerm.CompareTo(depunctuatedText[i]) == 0)
-            //    {
-            //        try
-            //        {
-            //            for (int n = i-range; n < i + range; n++)
-            //            {
-            //                if (searchTerm.CompareTo(depunctuatedText[n]) == 0)
-            //                {
-            //                    txtConcordanceLines.Text += punctuatedText[n].ToUpper() + " ";
-            //                }
-            //                else
-            //                {
-            //                    txtConcordanceLines.Text += punctuatedText[n] + " ";
-            //                }
-                            
-
-            //            }
-            //            txtConcordanceLines.Text += "\n";
-            //        }
-            //        catch (Exception E)
-            //        {
-
-            //        }
-            //    }
-            //    i++;
-            //}
+          
         }
 
         private void btnSort_Click(object sender, RoutedEventArgs e)
@@ -258,7 +207,26 @@ namespace Concordancer
                 {
                     tabs += "\t";
                 }
-                txtFreqList.Text += string.Format("{0} {1} has {2} occurances", k.Key, tabs, k.Value);
+                txtFreqList.Text += string.Format("{0} --\t{1}", k.Value, k.Key);
+                txtFreqList.Text += "\n";
+            }
+        }
+
+        private void btnSort_Click2(object sender, RoutedEventArgs e)
+        {
+            txtFreqList.Text = "";
+            Dictionary<string, int> wordList = frequencyCounter(lstDepunctuated.ToArray());
+            var myList = wordList.ToList();
+
+            myList.Sort((pair1, pair2) => pair2.Key.CompareTo(pair1.Key)); //Link syntax
+            foreach (KeyValuePair<string, int> k in myList)
+            {
+                string tabs = "\t";
+                if (k.Key.Length < 8)
+                {
+                    tabs += "\t";
+                }
+                txtFreqList.Text += string.Format("{0} --\t{1}", k.Value, k.Key);
                 txtFreqList.Text += "\n";
             }
         }
