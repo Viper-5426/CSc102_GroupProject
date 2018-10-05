@@ -57,7 +57,9 @@ namespace Concordancer
         private void btnLoad_Click(object sender, RoutedEventArgs e)
         {
             string sString = System.IO.File.ReadAllText(@txtLocation.Text);
-            loadedText = sString; 
+            loadedText = sString;
+            cleanedText = removePunctuation(loadedText.ToLower());  //uses the efficient method to display the book without punctuation
+
             MessageBox.Show("Your file has been loaded!", "Success");
 
         }
@@ -100,7 +102,6 @@ namespace Concordancer
         {
             //TODO: must take the loadedText and send it to frequency counter
             //what the frequency counter returns must be shown in the txtFreqList in an orderly fashion
-            cleanedText = removePunctuation(loadedText.ToLower());  //uses the efficient method to display the book without punctuation
             punctuatedText = loadedText.Split();
             punctuatedText = stripEmptyAndNull(punctuatedText);
             int i = 0;
@@ -114,16 +115,24 @@ namespace Concordancer
 
             myList.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value)); //Link syntax
 
-            foreach (KeyValuePair<string, int> k in myList)
+            string result = "";
+
+            foreach (string k in wordList.Keys)
             {
-                string tabs = "\t";
-                if (k.Key.Length < 8)
-                {
-                    tabs += "\t";
-                }
-                txtFreqList.Text += string.Format("{0} {1} has {2} occurances", k.Key, tabs, k.Value);
-                txtFreqList.Text += "\n";
+                result += String.Format("{0} \t\t {1}\n", k, wordList[k]);
             }
+            txtFreqList.Text = result;
+
+            //foreach (KeyValuePair<string, int> k in myList)
+            //{
+            //    string tabs = "\t";
+            //    if (k.Key.Length < 8)
+            //    {
+            //        tabs += "\t";
+            //    }
+            //    txtFreqList.Text += string.Format("{0} {1} has {2} occurances", k.Key, tabs, k.Value);
+            //    txtFreqList.Text += "\n";
+            //}
 
         }
         private Dictionary<string, int> frequencyCounter(string[] textArray)
