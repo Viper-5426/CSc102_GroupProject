@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
+using System.IO;
 
 namespace Concordancer
 {
@@ -344,5 +345,18 @@ namespace Concordancer
                 txtCollocates.Text += "\n";
             }
         }
-    }
+
+		private void Button_Click(object sender, RoutedEventArgs e)
+		{
+			string directory = @"D:\Concordancer Results\";
+			string x = System.IO.Path.Combine(directory, "Freq_results.txt");
+
+			if (!Directory.Exists(directory))
+			{
+				Directory.CreateDirectory(directory);
+			}
+
+			File.WriteAllText(x, txtFreqList.Text);
+		}
+	}
 }
