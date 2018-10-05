@@ -166,6 +166,10 @@ namespace Concordancer
                 {
                     for (int r = index - range; r < range + index+1; r++)
                     {
+                        if (r == index)
+                        {
+                            txtConcordanceLines.Text += punctuatedText[r].ToUpper() + " ";
+                        }
                         txtConcordanceLines.Text += punctuatedText[r] + " ";
                         //txtConcordanceLines.Text += depunctuatedText[r] + " ";
 
@@ -175,6 +179,10 @@ namespace Concordancer
                 {
                     for (int r = 0; r < range + index; r++)
                     {
+                        if (r == index)
+                        {
+                            txtConcordanceLines.Text += punctuatedText[r].ToUpper() + " ";
+                        }
                         txtConcordanceLines.Text += punctuatedText[r] + " ";
                         //txtConcordanceLines.Text += depunctuatedText[r] + " ";
                     }
@@ -183,6 +191,10 @@ namespace Concordancer
                 {
                     for (int r = index - range; r < punctuatedText.Length; r++)
                     {
+                        if (r == index)
+                        {
+                            txtConcordanceLines.Text += punctuatedText[r].ToUpper() + " ";
+                        }
                         txtConcordanceLines.Text += punctuatedText[r] + " ";
                         //txtConcordanceLines.Text += depunctuatedText[r] + " ";
                     }
