@@ -33,6 +33,8 @@ namespace Concordancer
         public MainWindow()
         {
             InitializeComponent();
+            tabConcordanceLines.Visibility = Visibility.Hidden;
+            tabCollocates.Visibility = Visibility.Hidden;
         }
 
         private void btnBrowse_Click(object sender, RoutedEventArgs e)
@@ -107,6 +109,9 @@ namespace Concordancer
             //what the frequency counter returns must be shown in the txtFreqList in an orderly fashion
             punctuatedText = loadedText.Split();
             punctuatedText = stripEmptyAndNull(punctuatedText);
+            string textLocation = txtLocation.Text;
+            int index = 0, count = 0;
+            
             int i = 0;
             foreach (string s in punctuatedText)
             {
@@ -125,6 +130,26 @@ namespace Concordancer
                 result += String.Format("{0} --\t {1}\n", wordList[k], k);
             }
             txtFreqList.Text = result;
+
+            foreach (char c in textLocation)
+            {
+                count++;
+                if (c == Convert.ToChar(@"\"))
+                {
+                    index = count;
+                }
+            }
+            textLocation = "";
+            for (int t = index; t<txtLocation.Text.Length; t++)
+            {
+                textLocation += txtLocation.Text[t];
+            }
+
+            txtLength.Text = "Loaded text: " + "\n" + textLocation;
+            txtLength.Text += "\n" + "No. of words in text: " + "\n" + lstDepunctuated.Count + " words";
+
+            tabConcordanceLines.Visibility = Visibility.Visible;
+            tabCollocates.Visibility = Visibility.Visible;
 
         }
         private Dictionary<string, int> frequencyCounter(string[] textArray)
@@ -156,9 +181,7 @@ namespace Concordancer
             txtConcordanceLines.Text = "";
             int range = Convert.ToInt32(sliWindowRange.Value);
             string searchTerm = txtSearchTerm.Text;
-            txtLength.Text = "" + lstDepunctuated.Count;
-            txtLength.Text += "\n" + punctuatedText.Length;
-
+            string result = "";
 
 
             int[] indexes = findMatches(lstDepunctuated.ToArray(), searchTerm.ToLower());
@@ -171,11 +194,11 @@ namespace Concordancer
                     {
                         if (r == index)
                         {
-                            txtConcordanceLines.Text += punctuatedText[r].ToUpper() + " ";
+                            result += punctuatedText[r].ToUpper() + " ";
                         }
                         else
                         {
-                            txtConcordanceLines.Text += punctuatedText[r] + " ";
+                            result += punctuatedText[r] + " ";
 
                         }
                         //txtConcordanceLines.Text += depunctuatedText[r] + " ";
@@ -188,11 +211,11 @@ namespace Concordancer
                     {
                         if (r == index)
                         {
-                            txtConcordanceLines.Text += punctuatedText[r].ToUpper() + " ";
+                            result += punctuatedText[r].ToUpper() + " ";
                         }
                         else
                         {
-                            txtConcordanceLines.Text += punctuatedText[r] + " ";
+                            result += punctuatedText[r] + " ";
                         }
                         //txtConcordanceLines.Text += depunctuatedText[r] + " ";
                     }
@@ -203,18 +226,19 @@ namespace Concordancer
                     {
                         if (r == index)
                         {
-                            txtConcordanceLines.Text += punctuatedText[r].ToUpper() + " ";
+                            result += punctuatedText[r].ToUpper() + " ";
                         }
                         else
                         {
-                            txtConcordanceLines.Text += punctuatedText[r] + " ";
+                            result += punctuatedText[r] + " ";
                         }
                         //txtConcordanceLines.Text += depunctuatedText[r] + " ";
                     }
                 }
-                txtConcordanceLines.Text += "\n";
+                result += "\n";
                 lblOccurrences.Content = String.Format("Found {0} occurrences of '{1}'", indexes.Length, searchTerm);
             }
+            txtConcordanceLines.Text = result;
 
         }
 
@@ -347,7 +371,7 @@ namespace Concordancer
             }
         }
 
-		private void Button_Click(object sender, RoutedEventArgs e)
+		private void btnSaveFrequency_Click(object sender, RoutedEventArgs e)
 		{
 			string[] splitted = txtFreqList.Text.Split('\n');
 
@@ -367,7 +391,7 @@ namespace Concordancer
 
 		}
 
-		private void Button_Click_1(object sender, RoutedEventArgs e)
+		private void btnSaveConcordance_Click(object sender, RoutedEventArgs e)
 		{
 			string[] CoNsplitted = txtConcordanceLines.Text.Split('\n');
 			string directory = @"D:\Concordancer Results\";
@@ -385,7 +409,7 @@ namespace Concordancer
 			}
 		}
 
-		private void Button_Click_2(object sender, RoutedEventArgs e)
+		private void btnSaveCollocates_Click(object sender, RoutedEventArgs e)
 		{
 			string[] CoLsplitted = txtCollocates.Text.Split('\n');
 			string directory = @"D:\Concordancer Results\";
@@ -402,18 +426,59 @@ namespace Concordancer
 
 			}
 		}
+        
 
-		private void txtFreqList_TextChanged(object sender, TextChangedEventArgs e)
+		private void btnHelp_Click(object sender, RoutedEventArgs e)
 		{
-
-		}
-
-		private void Button_Click_3(object sender, RoutedEventArgs e)
-		{
-
 			txtFreqList.Text = ("What is a Concordancer? : https://en.wikipedia.org/wiki/Concordancer \n \n" +
 				"What is a Collocate? : https://en.wikipedia.org/wiki/Collocation \n \n" +
 				"Copy the links into a browser for more information.");
-		}
-	}
+            txtConcordanceLines.Text = ("What is a Concordancer? : https://en.wikipedia.org/wiki/Concordancer \n \n" +
+                "What is a Collocate? : https://en.wikipedia.org/wiki/Collocation \n \n" +
+                "Copy the links into a browser for more information.");
+            txtCollocates.Text = ("What is a Concordancer? : https://en.wikipedia.org/wiki/Concordancer \n \n" +
+                "What is a Collocate? : https://en.wikipedia.org/wiki/Collocation \n \n" +
+                "Copy the links into a browser for more information.");
+        }
+
+        private void sliWindowRange_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            try
+            {
+                if (Convert.ToInt32(sliWindowRange.Value) == -1)
+                {
+                    txtRange.Text = "0";
+                }
+                else
+                {
+                    txtRange.Text = Convert.ToString(Convert.ToInt32(sliWindowRange.Value));
+                }
+
+            }
+            catch(Exception E)
+            {
+
+            }
+        }
+
+        private void sliWindowRangeColl_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            try
+            {
+                if (Convert.ToInt32(sliWindowRange.Value) == 0)
+                {
+                    txtCollocateRange.Text = "1";
+                }
+                else
+                {
+                    txtCollocateRange.Text = Convert.ToString(Convert.ToInt32(sliWindowRange.Value));
+                }
+
+            }
+            catch (Exception E)
+            {
+
+            }
+        }
+    }
 }
