@@ -220,6 +220,7 @@ namespace Concordancer
 
         private void btnSort_Click(object sender, RoutedEventArgs e)
         {
+
             txtFreqList.Text = "Freq.\tWord\n\n";
             Dictionary<string, int> wordList = frequencyCounter(lstDepunctuated.ToArray());
             var myList = wordList.ToList();
@@ -348,6 +349,8 @@ namespace Concordancer
 
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
+			string[] splitted = txtFreqList.Text.Split('\n');
+
 			string directory = @"D:\Concordancer Results\";
 			string x = System.IO.Path.Combine(directory, "Freq_results.txt");
 
@@ -356,11 +359,17 @@ namespace Concordancer
 				Directory.CreateDirectory(directory);
 			}
 
-			File.WriteAllText(x, txtFreqList.Text);
+			for (int i = 0; i < splitted.Length; i++)
+			{
+				File.WriteAllLines(x, splitted);
+				
+			}
+
 		}
 
 		private void Button_Click_1(object sender, RoutedEventArgs e)
 		{
+			string[] CoNsplitted = txtConcordanceLines.Text.Split('\n');
 			string directory = @"D:\Concordancer Results\";
 			string x = System.IO.Path.Combine(directory, "Conc_results.txt");
 
@@ -369,11 +378,16 @@ namespace Concordancer
 				Directory.CreateDirectory(directory);
 			}
 
-			File.WriteAllText(x, txtConcordanceLines.Text);
+			for (int i = 0; i < CoNsplitted.Length; i++)
+			{
+				File.WriteAllLines(x, CoNsplitted);
+
+			}
 		}
 
 		private void Button_Click_2(object sender, RoutedEventArgs e)
 		{
+			string[] CoLsplitted = txtCollocates.Text.Split('\n');
 			string directory = @"D:\Concordancer Results\";
 			string x = System.IO.Path.Combine(directory, "Collo_results.txt");
 
@@ -382,12 +396,24 @@ namespace Concordancer
 				Directory.CreateDirectory(directory);
 			}
 
-			File.WriteAllText(x, txtCollocates.Text);
+			for (int i = 0; i < CoLsplitted.Length; i++)
+			{
+				File.WriteAllLines(x, CoLsplitted);
+
+			}
 		}
 
 		private void txtFreqList_TextChanged(object sender, TextChangedEventArgs e)
 		{
 
+		}
+
+		private void Button_Click_3(object sender, RoutedEventArgs e)
+		{
+
+			txtFreqList.Text = ("What is a Concordancer? : https://en.wikipedia.org/wiki/Concordancer \n \n" +
+				"What is a Collocate? : https://en.wikipedia.org/wiki/Collocation \n \n" +
+				"Copy the links into a browser for more information.");
 		}
 	}
 }

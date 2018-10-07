@@ -34,11 +34,10 @@
 					</Grid.ColumnDefinitions>
 					<TextBox x:Name="txtFreqList" HorizontalAlignment="Left" Height="294" TextWrapping="Wrap" VerticalAlignment="Top" Width="651" VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="3" TextChanged="txtFreqList_TextChanged"/>
 					<Button x:Name="btnFrequency" Content="Count &#xD;&#xA;Frequencies!" HorizontalAlignment="Left" Margin="396.429,218,0,0" VerticalAlignment="Top" Width="98" Height="35" Click="btnFrequency_Click" Grid.Column="2" Background="#FFDAFF79"/>
-					<TextBox x:Name="txtLength" HorizontalAlignment="Left" Height="203" Margin="419.429,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42" Grid.Column="2"/>
+					<TextBox x:Name="txtLength" HorizontalAlignment="Left" Height="203" Margin="425,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42" Grid.Column="2"/>
 					<Button x:Name="btnSort" Content="Sort (freq.)" HorizontalAlignment="Left" Margin="407.429,258,0,0" VerticalAlignment="Top" Width="75" Click="btnSort_Click" Grid.Column="2" Background="#FFDAFF79"/>
 					<Button x:Name="btnSort_2" Content="Sort (alph.)" HorizontalAlignment="Left" Margin="407.429,283,0,0" VerticalAlignment="Top" Width="75" Click="btnSort_Click2" Grid.Column="2" Background="#FFDAFF79"/>
 					<Button Content="Save Results" HorizontalAlignment="Left" Margin="300.429,294,0,0" VerticalAlignment="Top" Width="79" RenderTransformOrigin="0.86,-0.129" Height="26" Click="Button_Click" Grid.Column="2" Background="#FFDAFF79"/>
-					<Image Margin="143,0,162,38" Source="istock-474706700.jpg" Stretch="Fill" Opacity="0.2" Grid.ColumnSpan="3"/>
 				</Grid>
 			</TabItem>
 			<TabItem x:Name="tabConcordanceLines" Header="Concordance Lines">
@@ -89,6 +88,7 @@
 				</Grid>
 			</TabItem>
 		</TabControl>
+		<Button Content="Help!" Grid.Column="1" HorizontalAlignment="Left" Margin="563,10,0,0" VerticalAlignment="Top" Width="85" RenderTransformOrigin="1.196,0.982" Height="31" Click="Button_Click_3" Background="#FFCD1515" Foreground="White"/>
 
 	</Grid>
 </Window>
