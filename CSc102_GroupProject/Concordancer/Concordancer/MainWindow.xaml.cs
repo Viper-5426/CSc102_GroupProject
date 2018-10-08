@@ -107,50 +107,57 @@ namespace Concordancer
         {
             //TODO: must take the loadedText and send it to frequency counter
             //what the frequency counter returns must be shown in the txtFreqList in an orderly fashion
-            punctuatedText = loadedText.Split();
-            punctuatedText = stripEmptyAndNull(punctuatedText);
-            string textLocation = txtLocation.Text;
-            int index = 0, count = 0;
-            
-            int i = 0;
-            foreach (string s in punctuatedText)
+            if (loadedText == "")
             {
-                lstDepunctuated.Add(removePunctuation(s.ToLower()));
-                i++;
+                MessageBox.Show("Please load a text first!", "Error: No text loaded.");
             }
-            Dictionary<string, int> wordList = frequencyCounter(lstDepunctuated.ToArray());
-            var myList = wordList.ToList();
-
-            myList.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value)); //Link syntax
-
-            string result = "Freq.\tWord\n\n";
-
-            foreach (string k in wordList.Keys)
+            else
             {
-                result += String.Format("{0} --\t {1}\n", wordList[k], k);
-            }
-            txtFreqList.Text = result;
+                punctuatedText = loadedText.Split();
+                punctuatedText = stripEmptyAndNull(punctuatedText);
+                string textLocation = txtLocation.Text;
+                int index = 0, count = 0;
 
-            foreach (char c in textLocation)
-            {
-                count++;
-                if (c == Convert.ToChar(@"\"))
+                int i = 0;
+                foreach (string s in punctuatedText)
                 {
-                    index = count;
+                    lstDepunctuated.Add(removePunctuation(s.ToLower()));
+                    i++;
                 }
+                Dictionary<string, int> wordList = frequencyCounter(lstDepunctuated.ToArray());
+                var myList = wordList.ToList();
+
+                myList.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value)); //Link syntax
+
+                string result = "Freq.\tWord\n\n";
+
+                foreach (string k in wordList.Keys)
+                {
+                    result += String.Format("{0} --\t {1}\n", wordList[k], k);
+                }
+                txtFreqList.Text = result;
+
+                foreach (char c in textLocation)
+                {
+                    count++;
+                    if (c == Convert.ToChar(@"\"))
+                    {
+                        index = count;
+                    }
+                }
+                textLocation = "";
+                for (int t = index; t < txtLocation.Text.Length; t++)
+                {
+                    textLocation += txtLocation.Text[t];
+                }
+
+                txtLength.Text = "Loaded text: " + "\n" + textLocation;
+                txtLength.Text += "\n\n" + "No. of words in text: " + "\n" + lstDepunctuated.Count + " words";
+                txtLength.Text += "\n\n" + "No. of unique words:" + "\n" + wordList.Count() + "words";
+
+                tabConcordanceLines.Visibility = Visibility.Visible;
+                tabCollocates.Visibility = Visibility.Visible;
             }
-            textLocation = "";
-            for (int t = index; t<txtLocation.Text.Length; t++)
-            {
-                textLocation += txtLocation.Text[t];
-            }
-
-            txtLength.Text = "Loaded text: " + "\n" + textLocation;
-            txtLength.Text += "\n" + "No. of words in text: " + "\n" + lstDepunctuated.Count + " words";
-
-            tabConcordanceLines.Visibility = Visibility.Visible;
-            tabCollocates.Visibility = Visibility.Visible;
-
         }
         private Dictionary<string, int> frequencyCounter(string[] textArray)
         {
@@ -288,7 +295,7 @@ namespace Concordancer
             int[] indexes = findMatches(lstDepunctuated.ToArray(), searchTerm.ToLower());
             List<string> surroundingWds = new List<string>();
             int range = Convert.ToInt32(sliWindowRange.Value);
-
+ 
             foreach (int index in indexes)
             {
                 if ((index - range) > 0 && (index + range + 1) < lstDepunctuated.Count)
@@ -430,15 +437,18 @@ namespace Concordancer
 
 		private void btnHelp_Click(object sender, RoutedEventArgs e)
 		{
-			txtFreqList.Text = ("What is a Concordancer? : https://en.wikipedia.org/wiki/Concordancer \n \n" +
-				"What is a Collocate? : https://en.wikipedia.org/wiki/Collocation \n \n" +
-				"Copy the links into a browser for more information.");
-            txtConcordanceLines.Text = ("What is a Concordancer? : https://en.wikipedia.org/wiki/Concordancer \n \n" +
-                "What is a Collocate? : https://en.wikipedia.org/wiki/Collocation \n \n" +
-                "Copy the links into a browser for more information.");
-            txtCollocates.Text = ("What is a Concordancer? : https://en.wikipedia.org/wiki/Concordancer \n \n" +
-                "What is a Collocate? : https://en.wikipedia.org/wiki/Collocation \n \n" +
-                "Copy the links into a browser for more information.");
+            string helpText = 
+                @""+"What is a Concordancer?\n"+"A concordancer is a computer program that automatically constructs a concordance. \n"+"The output of a concordancer may " +
+                "serve as input to a translation memory system for computer-assisted translation, or as an early step in machine translation.\nhttps://en.wikipedia.org/wiki/Concordancer \n\n" +
+                "What is a concordance? \n" +
+                "A concordance is an alphabetical list of the principal words used in a book or " +
+                "body of work, listing every instance of each word with its immediate context.\n " +
+                "https://en.wikipedia.org/wiki/Concordance_(publishing) \n\n" +
+                "What is a Collocate?\n" +
+                "In linguistics, a collocate of a particular word is another word which often occurs with that word.\n"
+                + "https://en.wikipedia.org/wiki/Collocation \n\n" +
+                "Copy the links into a browser for more information.";
+            MessageBox.Show(helpText, "Here is some advice");
         }
 
         private void sliWindowRange_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -467,7 +477,7 @@ namespace Concordancer
             {
                 if (Convert.ToInt32(sliWindowRange.Value) == 0)
                 {
-                    txtCollocateRange.Text = "1";
+                    txtCollocateRange.Text = "" + Convert.ToInt32(sliWindowRange.Value);
                 }
                 else
                 {
