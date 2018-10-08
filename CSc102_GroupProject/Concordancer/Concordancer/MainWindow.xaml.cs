@@ -152,8 +152,8 @@ namespace Concordancer
                 }
 
                 txtLength.Text = "Loaded text: " + "\n" + textLocation;
-                txtLength.Text += "\n\n" + "No. of words in text: " + "\n" + lstDepunctuated.Count + " words";
-                txtLength.Text += "\n\n" + "No. of unique words:" + "\n" + wordList.Count() + "words";
+                txtLength.Text += "\n\n" + "Wordcount: " + "\n\n" + lstDepunctuated.Count;
+                txtLength.Text += "\n\n" + "Total Unique Words:" + "\n\n" + wordList.Count();
 
                 tabConcordanceLines.Visibility = Visibility.Visible;
                 tabCollocates.Visibility = Visibility.Visible;
