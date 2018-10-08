@@ -191,24 +191,23 @@ namespace Concordancer
             string result = "";
 
 
-            int[] indexes = findMatches(lstDepunctuated.ToArray(), searchTerm.ToLower());
+            int[] indexes = findMatches(lstDepunctuated.ToArray(), searchTerm.ToLower());  //returns indexes of search term
 
-            foreach (int index in indexes)
+            foreach (int index in indexes)  // for each occurance of search term
             {
                 if ((index - range) > 0 && (index + range + 1) < punctuatedText.Length)
                 {
-                    for (int r = index - range; r < range + index + 1; r++)
+                    for (int r = index - range; r < range + index + 1; r++)  //for selected range to the left and to the right - print
                     {
                         if (r == index)
                         {
-                            result += punctuatedText[r].ToUpper() + " ";
+                            result += punctuatedText[r].ToUpper() + " "; //uppercase the search term
                         }
                         else
                         {
                             result += punctuatedText[r] + " ";
 
                         }
-                        //txtConcordanceLines.Text += depunctuatedText[r] + " ";
 
                     }
                 }
@@ -224,7 +223,6 @@ namespace Concordancer
                         {
                             result += punctuatedText[r] + " ";
                         }
-                        //txtConcordanceLines.Text += depunctuatedText[r] + " ";
                     }
                 }
                 else if ((index + range) > punctuatedText.Length)
@@ -239,11 +237,10 @@ namespace Concordancer
                         {
                             result += punctuatedText[r] + " ";
                         }
-                        //txtConcordanceLines.Text += depunctuatedText[r] + " ";
                     }
                 }
                 result += "\n";
-                lblOccurrences.Content = String.Format("Found {0} occurrences of '{1}'", indexes.Length, searchTerm);
+                lblOccurrences.Content = String.Format("Found {0} occurrences of '{1}'", indexes.Length, searchTerm); //label showing No. of occurances of search term
             }
             txtConcordanceLines.Text = result;
 
@@ -256,7 +253,7 @@ namespace Concordancer
             Dictionary<string, int> wordList = frequencyCounter(lstDepunctuated.ToArray());
             var myList = wordList.ToList();
 
-            myList.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value)); //Link syntax
+            myList.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value)); //Linq syntax
             foreach (KeyValuePair<string, int> k in myList)
             {
                 string tabs = "\t";
@@ -275,7 +272,7 @@ namespace Concordancer
             Dictionary<string, int> wordList = frequencyCounter(lstDepunctuated.ToArray());
             var myList = wordList.ToList();
 
-            myList.Sort((pair1, pair2) => pair2.Key.CompareTo(pair1.Key)); //Link syntax
+            myList.Sort((pair1, pair2) => pair2.Key.CompareTo(pair1.Key)); //Linq syntax
             foreach (KeyValuePair<string, int> k in myList)
             {
                 string tabs = "\t";
@@ -347,7 +344,7 @@ namespace Concordancer
             txtCollocates.Text = "Freq.\tCollocate\n\n";
             var myList = collocateList.ToList();
 
-            myList.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value)); //Link syntax
+            myList.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value)); //Linq syntax
             foreach (KeyValuePair<string, int> k in myList)
             {
                 string tabs = "\t";
