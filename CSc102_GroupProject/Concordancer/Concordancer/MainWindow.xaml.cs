@@ -294,7 +294,7 @@ namespace Concordancer
             string searchTerm = txtSearchCollocates.Text;
             int[] indexes = findMatches(lstDepunctuated.ToArray(), searchTerm.ToLower());
             List<string> surroundingWds = new List<string>();
-            int range = Convert.ToInt32(sliWindowRange.Value);
+            int range = Convert.ToInt32(sliWindowRangeColl.Value);
  
             foreach (int index in indexes)
             {
@@ -475,13 +475,13 @@ namespace Concordancer
         {
             try
             {
-                if (Convert.ToInt32(sliWindowRange.Value) == 0)
+                if (Convert.ToInt32(sliWindowRangeColl.Value) == 0)
                 {
-                    txtCollocateRange.Text = "" + Convert.ToInt32(sliWindowRange.Value);
+                    txtCollocateRange.Text = "" + Convert.ToInt32(sliWindowRangeColl.Value);
                 }
                 else
                 {
-                    txtCollocateRange.Text = Convert.ToString(Convert.ToInt32(sliWindowRange.Value));
+                    txtCollocateRange.Text = Convert.ToString(Convert.ToInt32(sliWindowRangeColl.Value));
                 }
 
             }
