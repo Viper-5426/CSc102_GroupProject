@@ -6,89 +6,90 @@
         xmlns:local="clr-namespace:Concordancer"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Background="#FF1A1A1B">
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <Button x:Name="btnLoad" Content="Load" HorizontalAlignment="Left" Margin="678,385,0,0" VerticalAlignment="Top" Width="81" Click="btnLoad_Click" Height="25" Background="#FF24E1FF"/>
-        <Button x:Name="btnBrowse" Content="Browse" HorizontalAlignment="Left" Margin="327,385,0,0" VerticalAlignment="Top" Width="75" Click="btnBrowse_Click" Height="25" Background="#FF24E1FF"/>
-        <TextBox x:Name="txtLocation" HorizontalAlignment="Left" Height="23" Margin="407,385,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="271" Text="..\..\..\Alice.txt"/>
-        <TextBox x:Name="txtDisplay" HorizontalAlignment="Left" Height="157" Margin="229,79,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="195"/>
-        <TabControl HorizontalAlignment="Left" Height="356" VerticalAlignment="Top" Width="792" Margin="0,24,0,0">
-            <TabItem x:Name="tabFrequencyList" Header="Frequency List" HorizontalAlignment="Left" Width="121" Margin="-2,-2,-61,0" Foreground="Black">
-                <TabItem.Background>
-                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                        <GradientStop Color="#FF9B9B9B" Offset="1"/>
-                    </LinearGradientBrush>
-                </TabItem.Background>
-                <Grid Background="#FFC1C0C0" Margin="0,0,0,-4">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox x:Name="txtFreqList" HorizontalAlignment="Left" Height="294" TextWrapping="Wrap" VerticalAlignment="Top" Width="651" VerticalScrollBarVisibility="Auto" />
-                    <Button x:Name="btnFrequency" Content="Count &#xD;&#xA;Frequencies!" HorizontalAlignment="Left" Margin="668,218,0,0" VerticalAlignment="Top" Width="98" Height="35" Click="btnFrequency_Click" Background="#FF000CFF" Foreground="White"/>
-                    <TextBox x:Name="txtLength" HorizontalAlignment="Left" Height="203" Margin="668,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="98"/>
-                    <Button x:Name="btnSort" Content="Sort (freq.)" HorizontalAlignment="Left" Margin="679,258,0,0" VerticalAlignment="Top" Width="75" Click="btnSort_Click" Background="#FF000CFF" Foreground="#FFF5EFEF"/>
-                    <Button x:Name="btnSort_2" Content="Sort (alph.)" HorizontalAlignment="Left" Margin="679,283,0,0" VerticalAlignment="Top" Width="75" Click="btnSort_Click2" Background="#FF000CFF" Foreground="Snow"/>
-                    <Button x:Name="txtSaveFrequency" Content="Save Results" HorizontalAlignment="Left" Margin="572,294,0,0" VerticalAlignment="Top" Width="79" RenderTransformOrigin="0.86,-0.129" Height="26" Click="btnSaveFrequency_Click" Background="#FF000CFF" Foreground="White"/>
-                </Grid>
-            </TabItem>
-            <TabItem x:Name="tabConcordanceLines" Header="Concordance Lines">
-                <TabItem.Background>
-                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                        <GradientStop Color="#FF9B9B9B" Offset="1"/>
-                    </LinearGradientBrush>
-                </TabItem.Background>
-                <Grid Background="#FFC1C0C0" Margin="0,-1,0,1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox x:Name="txtConcordanceLines" HorizontalAlignment="Center" Height="210" Margin="10,46,22,72" TextWrapping="Wrap" VerticalAlignment="Center" Width="754" TextAlignment="center" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"/>
-                    <Button x:Name="btnMakeConcordance" Content="Make Concordance Lines!" HorizontalAlignment="Left" Margin="264,277,0,0" VerticalAlignment="Top" Width="146" Height="30" Click="btnMakeConcordance_Click" Background="#FF000CFF" Foreground="White"/>
-                    <TextBlock x:Name="txbRange" HorizontalAlignment="Left" Margin="521,277,0,0" TextWrapping="Wrap" Text="Window range:" VerticalAlignment="Top" Height="30" Width="94"/>
-                    <Slider x:Name="sliWindowRange" HorizontalAlignment="Left" Margin="620,277,0,0" VerticalAlignment="Top" Width="156" AutoToolTipPlacement="BottomRight" Minimum="1" Cursor="Arrow" Maximum="15" ValueChanged="sliWindowRange_ValueChanged" Background="#FF48F5DE"/>
-                    <TextBox x:Name="txtSearchTerm" HorizontalAlignment="Left" Height="23" Margin="139,281,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <TextBlock x:Name="txbSearchTerm" HorizontalAlignment="Left" Margin="22,281,0,0" TextWrapping="Wrap" Text="Enter Search Term:" VerticalAlignment="Top" Height="30" Width="112"/>
-                    <Label x:Name="lblOccurrences" Content="" HorizontalAlignment="Left" Margin="59,10,0,0" VerticalAlignment="Top" Width="200"/>
-                    <Button x:Name="btnSaveConcordance" Content="Save Results" HorizontalAlignment="Left" Margin="646,257,0,0" VerticalAlignment="Top" Width="78" RenderTransformOrigin="0.23,1.175" Click="btnSaveConcordance_Click" Background="#FF000CFF" Foreground="White"/>
-                    <TextBox x:Name="txtRange" HorizontalAlignment="Left" Height="23" Margin="615,303,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="37"/>
-                    <Label x:Name="lblRange" Content="Concordance Range:" HorizontalAlignment="Left" Margin="486,300,0,0" VerticalAlignment="Top"/>
-                </Grid>
-            </TabItem>
-            <TabItem x:Name="tabCollocates" Header="Collocates" Margin="-2,-2,-2,0">
-                <TabItem.Background>
-                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                        <GradientStop Color="#FF9B9B9B" Offset="1"/>
-                    </LinearGradientBrush>
-                </TabItem.Background>
-                <Grid Background="#FFC1C0C0" Margin="0,-1,-3,1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="52*"/>
-                        <ColumnDefinition Width="8*"/>
-                        <ColumnDefinition Width="203*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox x:Name="txtCollocates" HorizontalAlignment="Left" Height="205" Margin="10,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="751" VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="3"/>
-                    <Button x:Name="btnListCollocates" Content="List Collocates" HorizontalAlignment="Left" Margin="84,277,0,0" VerticalAlignment="Top" Width="89" Height="30" Click="btnListCollocates_Click" Grid.Column="2" Background="#FF000CFF" Foreground="White"/>
-                    <TextBlock x:Name="lblRange1" HorizontalAlignment="Left" Margin="341,277,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="94" Grid.Column="2"><Run Text="Collocate"/><Run Text=" range:"/></TextBlock>
-                    <Slider x:Name="sliWindowRangeColl" HorizontalAlignment="Left" Margin="440,277,0,0" VerticalAlignment="Top" Width="156" AutoToolTipPlacement="BottomRight" Maximum="8" Minimum="1" Cursor="Arrow" Grid.Column="2" ValueChanged="sliWindowRangeColl_ValueChanged" Background="#FF69E4CE"/>
-                    <TextBox x:Name="txtSearchCollocates" HorizontalAlignment="Left" Height="23" Margin="139,281,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="3"/>
-                    <TextBlock x:Name="txbSearchTerm1" HorizontalAlignment="Left" Margin="22,281,0,0" TextWrapping="Wrap" Text="Enter Search Term:" VerticalAlignment="Top" Height="30" Width="112"/>
-                    <Button x:Name="btnSortFreq" Content="Sort by freq." HorizontalAlignment="Left" Margin="189,262,0,0" VerticalAlignment="Top" Width="75" Click="btnSortFreq_Click" Grid.Column="2" Background="#FF000CFF" Foreground="White"/>
-                    <Label x:Name="lblCountCollocates" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="326" Grid.ColumnSpan="3"/>
-                    <Button x:Name="btnSortAlph" Content="Sort by alph." HorizontalAlignment="Left" Margin="189,284,0,0" VerticalAlignment="Top" Width="75" Click="btnSortAlph_Click" Grid.Column="2" Background="#FF000CFF" Foreground="White"/>
-                    <Button x:Name="btnSaveCollocates" Content="Save results" HorizontalAlignment="Left" Margin="469,247,0,0" VerticalAlignment="Top" Width="85" RenderTransformOrigin="0.778,0.804" Click="btnSaveCollocates_Click" Height="25" Grid.Column="2" Background="#FF000CFF" Foreground="White"/>
-                    <Label x:Name="lblCollocateRange" Content="Collocate range:" Grid.Column="2" HorizontalAlignment="Left" Margin="341,302,0,0" VerticalAlignment="Top" Width="94"/>
-                    <TextBox x:Name="txtCollocateRange" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="440,302,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42"/>
-                </Grid>
-            </TabItem>
-        </TabControl>
-        <Button x:Name="btnHelp" Content="Help!" HorizontalAlignment="Left" Margin="621,10,0,0" VerticalAlignment="Top" Width="85" RenderTransformOrigin="1.196,0.982" Height="31" Click="btnHelp_Click" Background="#FF00D1FF" Foreground="Black"/>
+	<Grid Background="#FF1A1A1B">
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		<Button x:Name="btnLoad" Content="Load" HorizontalAlignment="Left" Margin="683,384,0,0" VerticalAlignment="Top" Width="81" Click="btnLoad_Click" Height="25" Background="#FF24E1FF"/>
+		<Button x:Name="btnBrowse" Content="Browse" HorizontalAlignment="Left" Margin="327,385,0,0" VerticalAlignment="Top" Width="75" Click="btnBrowse_Click" Height="25" Background="#FF24E1FF"/>
+		<TextBox x:Name="txtLocation" HorizontalAlignment="Left" Height="23" Margin="407,385,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="271" Text="..\..\..\Alice.txt"/>
+		<TextBox x:Name="txtDisplay" HorizontalAlignment="Left" Height="157" Margin="229,79,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="195"/>
+		<TabControl HorizontalAlignment="Left" Height="356" VerticalAlignment="Top" Width="792" Margin="0,24,0,0">
+			<TabItem x:Name="tabFrequencyList" Header="Frequency List" HorizontalAlignment="Left" Width="121" Margin="-2,-2,-61,0" Foreground="Black">
+				<TabItem.Background>
+					<LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+						<GradientStop Color="#FFF0F0F0" Offset="0"/>
+						<GradientStop Color="#FF9B9B9B" Offset="1"/>
+					</LinearGradientBrush>
+				</TabItem.Background>
+				<Grid Background="#FFC1C0C0" Margin="0,0,0,-4">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<TextBox x:Name="txtFreqList" HorizontalAlignment="Left" Height="294" TextWrapping="Wrap" VerticalAlignment="Top" Width="651" VerticalScrollBarVisibility="Auto" />
+					<Button x:Name="btnFrequency" Content="Count &#xD;&#xA;Frequencies!" HorizontalAlignment="Left" Margin="668,265,0,0" VerticalAlignment="Top" Width="98" Height="44" Click="btnFrequency_Click" Background="#FF000CFF" Foreground="White"/>
+					<TextBox x:Name="txtLength" HorizontalAlignment="Left" Height="203" Margin="668,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="98"/>
+					<Button x:Name="btnSort" Content="Sort (freq.)" HorizontalAlignment="Left" Margin="576,303,0,6" Width="75" Click="btnSort_Click" Background="#FF000CFF" Foreground="#FFF5EFEF"/>
+					<Button x:Name="btnSort_2" Content="Sort (alph.)" HorizontalAlignment="Left" Margin="496,303,0,0" VerticalAlignment="Top" Width="75" Click="btnSort_Click2" Background="#FF000CFF" Foreground="Snow" Height="23"/>
+					<Button x:Name="txtSaveFrequency" Content="Save Results" HorizontalAlignment="Left" Margin="668,10,0,0" VerticalAlignment="Top" Width="98" RenderTransformOrigin="0.86,-0.129" Height="26" Click="btnSaveFrequency_Click" Background="#FF000CFF" Foreground="White"/>
+				</Grid>
+			</TabItem>
+			<TabItem x:Name="tabConcordanceLines" Header="Concordance Lines">
+				<TabItem.Background>
+					<LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+						<GradientStop Color="#FFF0F0F0" Offset="0"/>
+						<GradientStop Color="#FF9B9B9B" Offset="1"/>
+					</LinearGradientBrush>
+				</TabItem.Background>
+				<Grid Background="#FFC1C0C0" Margin="0,-1,0,1">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="28*"/>
+						<ColumnDefinition Width="365*"/>
+					</Grid.ColumnDefinitions>
+					<TextBox x:Name="txtConcordanceLines" HorizontalAlignment="Center" Height="210" Margin="10,46,22,72" TextWrapping="Wrap" VerticalAlignment="Center" Width="754" TextAlignment="center" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="2"/>
+					<Button x:Name="btnMakeConcordance" Content="Make Concordance Lines!" HorizontalAlignment="Left" Margin="207.975,277,0,0" VerticalAlignment="Top" Width="146" Height="30" Click="btnMakeConcordance_Click" Background="#FF000CFF" Foreground="White" Grid.Column="1"/>
+					<TextBlock x:Name="txbRange" HorizontalAlignment="Left" Margin="464.975,277,0,0" TextWrapping="Wrap" Text="Window range:" VerticalAlignment="Top" Height="30" Width="94" Grid.Column="1"/>
+					<Slider x:Name="sliWindowRange" HorizontalAlignment="Left" Margin="563.975,277,0,0" VerticalAlignment="Top" Width="156" AutoToolTipPlacement="BottomRight" Minimum="1" Cursor="Arrow" Maximum="15" ValueChanged="sliWindowRange_ValueChanged" Background="#FF48F5DE" Grid.Column="1"/>
+					<TextBox x:Name="txtSearchTerm" HorizontalAlignment="Left" Height="23" Margin="82.975,281,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+					<TextBlock x:Name="txbSearchTerm" HorizontalAlignment="Left" Margin="22,281,0,0" TextWrapping="Wrap" Text="Enter Search Term:" VerticalAlignment="Top" Height="30" Width="112" Grid.ColumnSpan="2"/>
+					<Label x:Name="lblOccurrences" Content="" HorizontalAlignment="Left" Margin="2.975,10,0,0" VerticalAlignment="Top" Width="200" Grid.Column="1"/>
+					<Button x:Name="btnSaveConcordance" Content="Save Results" HorizontalAlignment="Left" Margin="619,10,0,0" VerticalAlignment="Top" Width="89" RenderTransformOrigin="0.23,1.175" Click="btnSaveConcordance_Click" Background="#FF000CFF" Foreground="White" Grid.Column="1" Height="26"/>
+					<TextBox x:Name="txtRange" HorizontalAlignment="Left" Height="23" Margin="558.975,303,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="37" Grid.Column="1"/>
+					<Label x:Name="lblRange" Content="Concordance Range:" HorizontalAlignment="Left" Margin="429.975,300,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+				</Grid>
+			</TabItem>
+			<TabItem x:Name="tabCollocates" Header="Collocates" Margin="-2,-2,-2,0">
+				<TabItem.Background>
+					<LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+						<GradientStop Color="#FFF0F0F0" Offset="0"/>
+						<GradientStop Color="#FF9B9B9B" Offset="1"/>
+					</LinearGradientBrush>
+				</TabItem.Background>
+				<Grid Background="#FFC1C0C0" Margin="0,-1,-3,1">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="52*"/>
+						<ColumnDefinition Width="8*"/>
+						<ColumnDefinition Width="203*"/>
+					</Grid.ColumnDefinitions>
+					<TextBox x:Name="txtCollocates" HorizontalAlignment="Left" Height="205" Margin="10,43,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="751" VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="3"/>
+					<Button x:Name="btnListCollocates" Content="List Collocates" HorizontalAlignment="Left" Margin="84,277,0,0" VerticalAlignment="Top" Width="89" Height="30" Click="btnListCollocates_Click" Grid.Column="2" Background="#FF000CFF" Foreground="White"/>
+					<TextBlock x:Name="lblRange1" HorizontalAlignment="Left" Margin="341,277,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="94" Grid.Column="2"><Run Text="Collocate"/><Run Text=" range:"/></TextBlock>
+					<Slider x:Name="sliWindowRangeColl" HorizontalAlignment="Left" Margin="440,277,0,0" VerticalAlignment="Top" Width="156" AutoToolTipPlacement="BottomRight" Maximum="8" Minimum="1" Cursor="Arrow" Grid.Column="2" ValueChanged="sliWindowRangeColl_ValueChanged" Background="#FF69E4CE"/>
+					<TextBox x:Name="txtSearchCollocates" HorizontalAlignment="Left" Height="23" Margin="139,281,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.ColumnSpan="3"/>
+					<TextBlock x:Name="txbSearchTerm1" HorizontalAlignment="Left" Margin="22,281,0,0" TextWrapping="Wrap" Text="Enter Search Term:" VerticalAlignment="Top" Height="30" Width="112"/>
+					<Button x:Name="btnSortFreq" Content="Sort by freq." HorizontalAlignment="Left" Margin="202,253,0,0" VerticalAlignment="Top" Width="75" Click="btnSortFreq_Click" Grid.Column="2" Background="#FF000CFF" Foreground="White" RenderTransformOrigin="0.348,0.041"/>
+					<Label x:Name="lblCountCollocates" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="326" Grid.ColumnSpan="3"/>
+					<Button x:Name="btnSortAlph" Content="Sort by alph." HorizontalAlignment="Left" Margin="282,253,0,0" VerticalAlignment="Top" Width="75" Click="btnSortAlph_Click" Grid.Column="2" Background="#FF000CFF" Foreground="White"/>
+					<Button x:Name="btnSaveCollocates" Content="Save Results" HorizontalAlignment="Left" Margin="496,10,0,0" VerticalAlignment="Top" Width="85" RenderTransformOrigin="0.778,0.804" Click="btnSaveCollocates_Click" Height="28" Grid.Column="2" Background="#FF000CFF" Foreground="White"/>
+					<Label x:Name="lblCollocateRange" Content="Collocate range:" Grid.Column="2" HorizontalAlignment="Left" Margin="341,302,0,0" VerticalAlignment="Top" Width="94"/>
+					<TextBox x:Name="txtCollocateRange" Grid.Column="2" HorizontalAlignment="Left" Height="23" Margin="440,302,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42"/>
+				</Grid>
+			</TabItem>
+		</TabControl>
+		<Button x:Name="btnHelp" Content="Help!" HorizontalAlignment="Left" Margin="679,10,0,0" VerticalAlignment="Top" Width="85" RenderTransformOrigin="1.196,0.982" Height="31" Click="btnHelp_Click" Background="#FF00D1FF" Foreground="Black"/>
 
-    </Grid>
+	</Grid>
 </Window>
