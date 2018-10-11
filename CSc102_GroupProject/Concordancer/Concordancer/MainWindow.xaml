@@ -32,8 +32,8 @@
                     <TextBox x:Name="txtFreqList" HorizontalAlignment="Left" Height="294" TextWrapping="Wrap" VerticalAlignment="Top" Width="651" VerticalScrollBarVisibility="Auto" IsReadOnly="True" />
                     <Button x:Name="btnFrequency" Content="Count &#xD;&#xA;Frequencies!" HorizontalAlignment="Left" Margin="668,265,0,0" VerticalAlignment="Top" Width="98" Height="44" Click="btnFrequency_Click" Background="#FF000CFF" Foreground="White"/>
                     <TextBox x:Name="txtLength" HorizontalAlignment="Left" Height="203" Margin="668,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="98" IsReadOnly="True"/>
-                    <Button x:Name="btnSort" Content="Sort (freq.)" HorizontalAlignment="Left" Margin="576,303,0,6" Width="75" Click="btnSort_Click" Background="#FF000CFF" Foreground="#FFF5EFEF"/>
-                    <Button x:Name="btnSort_2" Content="Sort (alph.)" HorizontalAlignment="Left" Margin="496,303,0,0" VerticalAlignment="Top" Width="75" Click="btnSort_Click2" Background="#FF000CFF" Foreground="Snow" Height="23"/>
+                    <Button x:Name="btnSortCountFreq" Content="Sort (freq.)" HorizontalAlignment="Left" Margin="576,303,0,6" Width="75" Click="btnSortCountFreq_Click" Background="#FF000CFF" Foreground="#FFF5EFEF"/>
+                    <Button x:Name="btnSortCountAlph" Content="Sort (alph.)" HorizontalAlignment="Left" Margin="496,303,0,0" VerticalAlignment="Top" Width="75" Click="btnSortCountAlph_Click" Background="#FF000CFF" Foreground="Snow" Height="23"/>
                     <Button x:Name="txtSaveFrequency" Content="Save Results" HorizontalAlignment="Left" Margin="668,10,0,0" VerticalAlignment="Top" Width="98" RenderTransformOrigin="0.86,-0.129" Height="26" Click="btnSaveFrequency_Click" Background="#FF000CFF" Foreground="White"/>
                 </Grid>
             </TabItem>

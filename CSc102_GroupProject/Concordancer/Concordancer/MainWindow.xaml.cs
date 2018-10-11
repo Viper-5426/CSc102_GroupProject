@@ -23,18 +23,18 @@ namespace Concordancer
     public partial class MainWindow : Window
     {
         string loadedText = "";
-        string cleanedText = "";
+        //string cleanedText = "";
         List<String> lstDepunctuated = new List<string>();  //cleanedText list
         string[] punctuatedText; //loadedText split into array and stripped of null and empty items
-        Dictionary<string, int> collocateList = new Dictionary<string, int>();
+        Dictionary<string, int> collocateList = new Dictionary<string, int>();  //dictionary that counts all the entries of collocates
 
 
 
         public MainWindow()
         {
             InitializeComponent();
-            tabConcordanceLines.Visibility = Visibility.Hidden;
-            tabCollocates.Visibility = Visibility.Hidden;
+            tabConcordanceLines.Visibility = Visibility.Hidden;  //only allows the user to use collocates and concordancer tabs once they have counted frequencies
+            tabCollocates.Visibility = Visibility.Hidden;  //same over here
         }
 
         private void btnBrowse_Click(object sender, RoutedEventArgs e)
@@ -59,17 +59,16 @@ namespace Concordancer
             }
         }
 
-        private void btnLoad_Click(object sender, RoutedEventArgs e)
+        private void btnLoad_Click(object sender, RoutedEventArgs e) //just loads the text into a manageable variable
         {
-            string sString = System.IO.File.ReadAllText(@txtLocation.Text);
-            loadedText = sString;
-            cleanedText = removePunctuation(loadedText.ToLower());  //uses the efficient method to display the book without punctuation
+            loadedText = System.IO.File.ReadAllText(@txtLocation.Text); //reads all the text in the file
+            //cleanedText = removePunctuation(loadedText.ToLower());  //uses the efficient method to display the book without punctuation or numbers
 
-            MessageBox.Show("Your file has been loaded!", "Success");
+            MessageBox.Show("Your file has been loaded!", "Success");  //just so you know we were successful :)
 
         }
 
-        private string removePunctuation(string sString)
+        private string removePunctuation(string sString)  //does all the cleaning
         {
             StringBuilder newString = new StringBuilder("");   //instantiates a stringBuilder object that is mutable, can be changed
             foreach (char c in sString)  //loops through each character in the book
@@ -81,22 +80,22 @@ namespace Concordancer
             }
             return newString.ToString();
         }
-        private string[] stripEmptyAndNull(string[] text)
+        private string[] stripEmptyAndNull(string[] text)  //we want to get rid of all the empty and null things, right? They aren't words...
         {
-            List<string> result; //totalWords stripped of all empty strings and null items
+            List<string> result; //result will be stripped of all empty strings and null items
             result = text.ToList();
-            result.RemoveAll(p => string.IsNullOrEmpty(p));
+            result.RemoveAll(p => string.IsNullOrEmpty(p));  //performs the IsNullOrEmpty method on all items in the list
             return result.ToArray();
         }
-        private int[] findMatches(string[] depunctuatedText, string searchTerm)
+        private int[] findMatches(string[] stringList, string searchTerm)  //returns the indexes of where the search term is found within the original array
         {
             List<int> result = new List<int>();
             int i = 0;
-            while (i < depunctuatedText.Length)
+            while (i < stringList.Length)  //loops through each item by index
             {
-                if (searchTerm.CompareTo(depunctuatedText[i]) == 0)
+                if (searchTerm.CompareTo(stringList[i]) == 0)
                 {
-                    result.Add(i);
+                    result.Add(i);  //adds the index if it matches with the searchterm
                 }
                 i++;
             }
@@ -105,11 +104,12 @@ namespace Concordancer
 
         private void btnFrequency_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: must take the loadedText and send it to frequency counter
+            //takes the loadedText and send it to frequency counter
             //what the frequency counter returns must be shown in the txtFreqList in an orderly fashion
+            //also shows other information about the text as a whole in txtLength
             if (loadedText == "")
             {
-                MessageBox.Show("Please load a text first!", "Error: No text loaded.");
+                MessageBox.Show("Please load a text first!", "Error: No text loaded."); //some small error checking
             }
             else
             {
@@ -158,8 +158,8 @@ namespace Concordancer
                 tabConcordanceLines.Visibility = Visibility.Visible;
                 tabCollocates.Visibility = Visibility.Visible;
             }
-        }
-        private Dictionary<string, int> frequencyCounter(string[] textArray)
+        }  //does all the handling of when the count frequency button is clicked
+        private Dictionary<string, int> frequencyCounter(string[] textArray)  //counts the frequency of all words in given array using a dictionary
         {
             //TODO: needs to sort all items in the array
             //then count occurrence of each unique item (maybe use dictionary and return it instead of an array of arrays?)
@@ -172,21 +172,22 @@ namespace Concordancer
             {
                 if (wordCounts.ContainsKey(word))
                 {
-                    wordCounts[word]++;
+                    wordCounts[word]++;  //if the word has already been added to the dictionary, it needs to increase in count
                 }
                 else
                 {
-                    wordCounts[word] = 1;
+                    wordCounts[word] = 1;  //if the word is new, make its count 1
                 }
             }
 
             return wordCounts;
         }
 
-        private void btnMakeConcordance_Click(object sender, RoutedEventArgs e)
+        private void btnMakeConcordance_Click(object sender, RoutedEventArgs e)  //does all the things related to the concordance button
         {
+            //shows a selected number of words to the left and right of the search term
             txtConcordanceLines.Text = "";
-            int range = Convert.ToInt32(sliWindowRange.Value);
+            int range = Convert.ToInt32(sliWindowRange.Value);  //reads in selected number from slider
             string searchTerm = txtSearchTerm.Text;
             string result = "";
 
@@ -195,7 +196,7 @@ namespace Concordancer
 
             foreach (int index in indexes)  // for each occurance of search term
             {
-                if ((index - range) > 0 && (index + range + 1) < punctuatedText.Length)
+                if ((index - range) > 0 && (index + range + 1) < punctuatedText.Length)   //if it's not at the edges of the text
                 {
                     for (int r = index - range; r < range + index + 1; r++)  //for selected range to the left and to the right - print
                     {
@@ -211,7 +212,7 @@ namespace Concordancer
 
                     }
                 }
-                else if ((index - range) < 0)
+                else if ((index - range) < 0)  //if its at the very beginning of the text
                 {
                     for (int r = 0; r < range + index; r++)
                     {
@@ -225,7 +226,7 @@ namespace Concordancer
                         }
                     }
                 }
-                else if ((index + range) > punctuatedText.Length)
+                else if ((index + range) > punctuatedText.Length)  //if its at the very end of the text
                 {
                     for (int r = index - range; r < punctuatedText.Length; r++)
                     {
@@ -246,10 +247,10 @@ namespace Concordancer
 
         }
 
-        private void btnSort_Click(object sender, RoutedEventArgs e)
+        private void btnSortCountFreq_Click(object sender, RoutedEventArgs e)
         {
 
-            txtFreqList.Text = "Freq.\tWord\n\n";
+            string Text = "Freq.\tWord\n\n";
             Dictionary<string, int> wordList = frequencyCounter(lstDepunctuated.ToArray());
             var myList = wordList.ToList();
 
@@ -261,32 +262,36 @@ namespace Concordancer
                 {
                     tabs += "\t";
                 }
-                txtFreqList.Text += string.Format("{0} --\t{1}", k.Value, k.Key);
-                txtFreqList.Text += "\n";
+                Text += string.Format("{0} --\t{1}", k.Value, k.Key);
+                Text += "\n";
             }
+            txtFreqList.Text = Text;
         }
 
-        private void btnSort_Click2(object sender, RoutedEventArgs e)
+        private void btnSortCountAlph_Click(object sender, RoutedEventArgs e)
         {
-            txtFreqList.Text = "Freq.\tWord\n\n";
+            string Text = "Freq.\tWord\n\n";
             Dictionary<string, int> wordList = frequencyCounter(lstDepunctuated.ToArray());
             var myList = wordList.ToList();
 
-            myList.Sort((pair1, pair2) => pair2.Key.CompareTo(pair1.Key)); //Linq syntax
+            myList.Sort((pair1, pair2) => pair2.Key.CompareTo(pair1.Key)); //LINQ, allows us to perform a function on each pair in this list
             foreach (KeyValuePair<string, int> k in myList)
             {
                 string tabs = "\t";
                 if (k.Key.Length < 8)
                 {
-                    tabs += "\t";
+                    tabs += "\t"; //neatly prints out all the things
                 }
-                txtFreqList.Text += string.Format("{0} --\t{1}", k.Value, k.Key);
-                txtFreqList.Text += "\n";
+                Text += string.Format("{0} --\t{1}", k.Value, k.Key);
+                Text += "\n";
             }
+            txtFreqList.Text = Text;
         }
 
         private void btnListCollocates_Click(object sender, RoutedEventArgs e)
         {
+            //combines aspects of the frequency count and the concordancer in order to 
+            //count the words within a given range around each occurrence of the search term
             txtCollocates.Text = "";
             string searchTerm = txtSearchCollocates.Text;
             int[] indexes = findMatches(lstDepunctuated.ToArray(), searchTerm.ToLower());
@@ -295,13 +300,13 @@ namespace Concordancer
  
             foreach (int index in indexes)
             {
-                if ((index - range) > 0 && (index + range + 1) < lstDepunctuated.Count)
+                if ((index - range) > 0 && (index + range + 1) < lstDepunctuated.Count) //if not at the edges of the text
                 {
                     for (int r = index - range; r < range + index + 1; r++)
                     {
                         if (r != index)
                         {
-                            surroundingWds.Add(lstDepunctuated[r]);
+                            surroundingWds.Add(lstDepunctuated[r]);  //adds words to the surroundingWds list
                         }
 
                     }
@@ -329,7 +334,7 @@ namespace Concordancer
 
             }
             collocateList = frequencyCounter(surroundingWds.ToArray());  //global variable
-            string result = "Freq.\tCollocate\n\n";
+            string result = "Freq.\tCollocate\n\n";  //for printing
 
             foreach (string k in collocateList.Keys)
             {
@@ -339,12 +344,12 @@ namespace Concordancer
             lblCountCollocates.Content = String.Format("Listing {0} collocates of '{1}'", surroundingWds.Count(), searchTerm);
         }
 
-        private void btnSortFreq_Click(object sender, RoutedEventArgs e)
+        private void btnSortFreq_Click(object sender, RoutedEventArgs e)  //sorts by frequency
         {
-            txtCollocates.Text = "Freq.\tCollocate\n\n";
+            string Text = "Freq.\tCollocate\n\n";
             var myList = collocateList.ToList();
 
-            myList.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value)); //Linq syntax
+            myList.Sort((pair1, pair2) => pair2.Value.CompareTo(pair1.Value)); //LINQ syntax
             foreach (KeyValuePair<string, int> k in myList)
             {
                 string tabs = "\t";
@@ -352,14 +357,15 @@ namespace Concordancer
                 {
                     tabs += "\t";
                 }
-                txtCollocates.Text += string.Format("{0} --\t{1}", k.Value, k.Key);
-                txtCollocates.Text += "\n";
+                Text += string.Format("{0} --\t{1}", k.Value, k.Key);
+                Text += "\n";
             }
+            txtCollocates.Text = Text;
         }
 
         private void btnSortAlph_Click(object sender, RoutedEventArgs e)
         {
-            txtCollocates.Text = "Freq.\tCollocate\n\n";
+            string Text = "Freq.\tCollocate\n\n";
             var myList = collocateList.ToList();
 
             myList.Sort((pair1, pair2) => pair2.Key.CompareTo(pair1.Key)); //Link syntax
@@ -370,65 +376,47 @@ namespace Concordancer
                 {
                     tabs += "\t";
                 }
-                txtCollocates.Text += string.Format("{0} --\t{1}", k.Value, k.Key);
-                txtCollocates.Text += "\n";
+                Text += string.Format("{0} --\t{1}", k.Value, k.Key);
+                Text += "\n";
             }
+            txtCollocates.Text = Text;
         }
 
-		private void btnSaveFrequency_Click(object sender, RoutedEventArgs e)
+        public void saveThingsToDirectory(string name, string[] splitted)
+        {
+            string directory = @"D:\Concordancer Results\";
+            string x = System.IO.Path.Combine(directory, name);
+
+            if (!Directory.Exists(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
+
+            for (int i = 0; i < splitted.Length; i++)
+            {
+                File.WriteAllLines(x, splitted);
+
+            }
+        }  //selects or creates a directory and writes a file inside
+
+        private void btnSaveFrequency_Click(object sender, RoutedEventArgs e)
+        {
+            string[] splitted = txtFreqList.Text.Split('\n');   //splits the text on all newline characters
+            saveThingsToDirectory("Freq_Results.txt", splitted);
+
+
+        }
+
+        private void btnSaveConcordance_Click(object sender, RoutedEventArgs e)
 		{
-			string[] splitted = txtFreqList.Text.Split('\n');
-
-			string directory = @"D:\Concordancer Results\";
-			string x = System.IO.Path.Combine(directory, "Freq_results.txt");
-
-			if (!Directory.Exists(directory))
-			{
-				Directory.CreateDirectory(directory);
-			}
-
-			for (int i = 0; i < splitted.Length; i++)
-			{
-				File.WriteAllLines(x, splitted);
-				
-			}
-
-		}
-
-		private void btnSaveConcordance_Click(object sender, RoutedEventArgs e)
-		{
-			string[] CoNsplitted = txtConcordanceLines.Text.Split('\n');
-			string directory = @"D:\Concordancer Results\";
-			string x = System.IO.Path.Combine(directory, "Conc_results.txt");
-
-			if (!Directory.Exists(directory))
-			{
-				Directory.CreateDirectory(directory);
-			}
-
-			for (int i = 0; i < CoNsplitted.Length; i++)
-			{
-				File.WriteAllLines(x, CoNsplitted);
-
-			}
+			string[] CoNsplitted = txtConcordanceLines.Text.Split('\n');   //splits the text on all newline characters
+            saveThingsToDirectory("Concord_Results.txt", CoNsplitted);
 		}
 
 		private void btnSaveCollocates_Click(object sender, RoutedEventArgs e)
 		{
-			string[] CoLsplitted = txtCollocates.Text.Split('\n');
-			string directory = @"D:\Concordancer Results\";
-			string x = System.IO.Path.Combine(directory, "Collo_results.txt");
-
-			if (!Directory.Exists(directory))
-			{
-				Directory.CreateDirectory(directory);
-			}
-
-			for (int i = 0; i < CoLsplitted.Length; i++)
-			{
-				File.WriteAllLines(x, CoLsplitted);
-
-			}
+			string[] CoLsplitted = txtCollocates.Text.Split('\n');  //splits the text on all newline characters
+            saveThingsToDirectory("Coll_Results.txt", CoLsplitted);
 		}
         
 
@@ -468,7 +456,7 @@ namespace Concordancer
             }
         }
 
-        private void sliWindowRangeColl_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void sliWindowRangeColl_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)  //displays the change of slider in a label
         {
             try
             {
